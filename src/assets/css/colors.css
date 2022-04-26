@@ -3,7 +3,7 @@
     --color-main-accent: #455BED;
     --color-main-accent-transparent: rgba(69, 91, 237, 80%);
     --color-main-background: #F6F8FA;
-    --color-main-foreground: #FEFFFE;
+    --color-main-foreground: hsl(120, 100%, 100%);
     --color-platinum-gray: #E5E5E5;
     --color-grim-gray: #D0D7DE;
 }

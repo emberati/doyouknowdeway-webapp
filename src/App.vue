@@ -50,6 +50,8 @@ export default {
 <regular-button :style='`regular`'>obama</regular-button>
 <regular-button :style='`regular`'>obama</regular-button>
 <search-field v-model="searchText"/>
+<linear-loader/>
+<p class="test">Загружаем</p>
 </template>
 
 <style>
@@ -58,6 +60,13 @@ export default {
     grid-template-columns: auto auto auto;
     grid-gap: 20px;
     
+  }
+
+  .test {
+    width: 300px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
   }
   /* @import url('./assets/css/reset.css'); */
 </style>
