@@ -1,0 +1,9 @@
+:root {
+    --color-main-layer: #D9E0FF;
+    --color-main-accent: #455BED;
+    --color-main-accent-transparent: rgba(69, 91, 237, 80%);
+    --color-main-background: #F6F8FA;
+    --color-main-foreground: #FEFFFE;
+    --color-platinum-gray: #E5E5E5;
+    --color-grim-gray: #D0D7DE;
+}
