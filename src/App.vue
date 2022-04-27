@@ -12,6 +12,11 @@ export default {
   },
   methods: {
   },
+  watch: {
+    syncedText() {
+      console.log(this.syncedText)
+    }
+  },
   data() {
     return {
       searchText: "",
@@ -43,15 +48,24 @@ export default {
 </script>
 
 <template>
-<div class="catalog">
+<div class="catalog for-test">
   <item-card :item="items[0]" v-for="i in 1"/>
 </div>
-<regular-button :style='`regular`'>obama</regular-button>
-<regular-button :style='`regular`'>obama</regular-button>
-<regular-button :style='`regular`'>obama</regular-button>
-<search-field v-model="searchText"/>
-<linear-loader/>
+<div class="for-test">
+  <round-button :style='`round`'>obama</round-button>
+  <round-button :style='`round`'>obama</round-button>
+  <round-button :style='`round`'>obama</round-button>
+</div>
+<div class="for-test">
+  <search-field v-model="searchText"/>
+</div>
+<div class="for-test">
+  <linear-loader/>
 <p class="test">Загружаем</p>
+</div>
+<div class="for-test">
+  <button-switcher v-model="syncedText" :options="['Зимнее', 'Летнее', 'Демисезон']"/>
+</div>
 </template>
 
 <style>
@@ -60,6 +74,10 @@ export default {
     grid-template-columns: auto auto auto;
     grid-gap: 20px;
     
+  }
+
+  .for-test {
+    margin-top: 20px;
   }
 
   .test {

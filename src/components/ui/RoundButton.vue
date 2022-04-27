@@ -1,8 +1,8 @@
 <script>
 export default {
-    name: 'regular-button',
+    name: 'round-button',
     props: {
-        style: String
+        variant: String
     }
 }
 </script>
@@ -10,7 +10,7 @@ export default {
 <template>
     <button class="button" 
         type="button"
-        :class="style ? style : `regular`"
+        :class="variant ? variant : `regular`"
     >
         <slot>Click Me</slot>
     </button>
@@ -18,22 +18,7 @@ export default {
 
 <style scoped>
     .button {
-        padding: 10px;
-        padding-left: 30px;
-        padding-right: 30px;
-
-        box-sizing: border-box;
-        width: min-content;
-
-        cursor: pointer;
-        user-select: none;
-        outline: none;
-
-        font-family: 'Montserrat';
-        text-align: center;
-        border: 1px solid transparent;
-        background-color: transparent;
-        border-radius: 15px;
+        border-radius: 20px;
     }
 
     .button:hover {

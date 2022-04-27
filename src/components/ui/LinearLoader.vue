@@ -6,8 +6,8 @@ export default {
 
 <template>
     <div class="loader">
-        <div class="loader-bold"></div>
-        <div class="loader-light"></div>
+        <div class="loader-bold line"></div>
+        <div class="loader-light line"></div>
     </div>
 </template>
 
@@ -21,25 +21,34 @@ export default {
 
         height: 7px;
         border-radius: 5px;
-        border: 1px solid var(--color-platinum-gray);
+        border: 1px solid var(--color-grim-gray);
+        height: 10px;
     }
 
     .loader>* {
         border-radius: 5px;
     }
 
-    .loader-bold {
+    .line {
         height: 100%;
         position: absolute;
         box-sizing: border-box;
-        z-index: 2;
+        
         top: 0;
         left: 100%;
         width: 100%;
+    }
 
+    .loader-bold {
+        z-index: 2;
         background-color: var(--color-main-accent-transparent);
+        animation: loader-bold 1.5s ease-in-out infinite;
+    }
 
-        animation: loader-bold 2s ease-in-out infinite;
+    .loader-light {
+        z-index: 1;
+        background-color: var(--color-main-layer);
+        animation: loader-light 1.5s ease-in-out infinite;
     }
 
     @keyframes loader-bold {
@@ -57,19 +66,6 @@ export default {
             left: 100%;
             width: 0%;
         }
-    }
-
-    .loader-light {
-        height: 100%;
-        position: absolute;
-        box-sizing: border-box;
-        z-index: 1;
-        top: 0;
-        left: 100%;
-        width: 100%;
-
-        background-color: var(--color-main-layer);
-        animation: loader-light 2s ease-in-out infinite;
     }
 
     @keyframes loader-light {

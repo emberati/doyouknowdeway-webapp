@@ -9,7 +9,7 @@
             <div class="description-inner static">
                 <div class="action-bar">
                     <span class="price valign-inner">{{ item.cost_per_hour }}₽</span>
-                    <regular-button :style="`white`" @click="check()">Добавить</regular-button>
+                    <round-button :variant="`white`" @click="check()">Добавить</round-button>
                 </div>
             </div>
         </div>
@@ -127,6 +127,6 @@ export default {
     }
 
     .button {
-        border-radius: 30px!important;
+        /* border-radius: 30px!important; */
     }
 </style>

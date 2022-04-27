@@ -1,7 +1,8 @@
-import RegularButton from '@/components/ui/RegularButton'
+import RoundButton from '@/components/ui/RoundButton'
 import SearchField from '@/components/ui/SearchField'
 import LinearLoader from '@/components/ui/LinearLoader'
+import ButtonSwitcher from '@/components/ButtonSwitcher'
 
 export default [
-    RegularButton, SearchField, LinearLoader
+    RoundButton, SearchField, LinearLoader, ButtonSwitcher
 ]

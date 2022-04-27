@@ -27,7 +27,7 @@ export default {
             @focus="onInputFocused"
             @blur="onInputFocused"
         >
-        <regular-button :style="`submit`">Найти</regular-button>
+        <round-button :variant="`submit`">Найти</round-button>
     </div>
 
 </template>

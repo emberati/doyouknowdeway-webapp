@@ -17,3 +17,21 @@ h2 {
     font-weight: 900;
     font-size: 14px;
 }
+
+.button {
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    box-sizing: border-box;
+    width: min-content;
+
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+
+    font-family: 'Montserrat';
+    text-align: center;
+    border: 1px solid transparent;
+    background-color: transparent;
+}
