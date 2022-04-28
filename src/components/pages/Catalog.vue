@@ -37,15 +37,33 @@ export default {
 </script>
 
 <template>
-<div class="catalog container">
-    <div class="catalog-items content"><item-card :item="items[0]" v-for="i in 3"/></div>
-</div>
+  <div class="catalog container">
+    <div class="content">
+      <section>
+        <h1>Фильтр по категориям</h1>
+        <h2>Фильтр по категориям</h2>
+      </section>
+      <section id="items-catalog">  
+        <item-card :item="items[0]" v-for="i in 3"/>
+      </section>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-    .catalog-items {
+    #items-catalog {
         display: grid;
         grid-template-columns: auto auto auto;
         grid-gap: 20px;
+    }
+
+    section {
+      margin-top: 50px;
+    }
+
+    section > h1,
+    section > h2
+    section > h3 {
+      margin-bottom: 20px;
     }
 </style>
