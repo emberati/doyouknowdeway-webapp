@@ -1,20 +1,21 @@
 <script>
 export default {
     name: 'linear-loader',
+    props: {
+        variant: String
+    }
 }
 </script>
 
 <template>
-    <div class="loader">
+    <div class="linear-loader" :class="variant? variant : ''">
         <div class="loader-bold line"></div>
         <div class="loader-light line"></div>
     </div>
 </template>
 
 <style scoped>
-    .loader {
-        margin-top: 20px;
-        max-width: 300px;
+    .linear-loader {
         position: relative;
         box-sizing: border-box;
         overflow: hidden;
@@ -22,10 +23,10 @@ export default {
         height: 7px;
         border-radius: 5px;
         border: 1px solid var(--color-grim-gray);
-        height: 10px;
+        height: 5px;
     }
 
-    .loader>* {
+    .linear-loader>* {
         border-radius: 5px;
     }
 
@@ -49,6 +50,11 @@ export default {
         z-index: 1;
         background-color: var(--color-main-layer);
         animation: loader-light 1.5s ease-in-out infinite;
+    }
+
+    .linear-loader.flat {
+        border: none;
+        border-radius: 0;
     }
 
     @keyframes loader-bold {

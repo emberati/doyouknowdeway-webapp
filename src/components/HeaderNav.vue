@@ -1,6 +1,9 @@
 <script>
 export default {
     name: 'header-nav',
+    props: {
+        loading: Boolean
+    },
     data: () => ({
         searchText: ''
     }),
@@ -20,11 +23,13 @@ export default {
                 <div class="search-wrapper"><search-field v-model="searchText" @update:modelValue="search"/></div>
             </div>
         </div>
+        <linear-loader v-show="loading" :variant="'flat'"/>
     </div>
 </template>
 
 <style scoped>
     .header-nav {
+        width: 100%;
         height: 60px;
         box-sizing: border-box;
         background-color: var(--color-main-foreground);

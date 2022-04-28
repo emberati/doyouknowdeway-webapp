@@ -18,18 +18,28 @@ h2 {
     font-size: 14px;
 }
 
+h3 {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 14px;
+}
+
 .container {
     width: 1280px;
+    box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
 }
 
 .content {
+    box-sizing: border-box;
     padding-left: 30px;
     padding-right: 30px;
 }
 
 .page-body {
+    padding-top: 50px;
+    padding-bottom: 50px;
     background-color: var(--color-main-foreground);
 }
 
