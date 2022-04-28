@@ -1,5 +1,6 @@
 <script>
 import ItemCard from "@/components/ItemCard"
+import HeaderNav from "@/components/HeaderNav"
 
 /* FOR DEV ONLY START */
 import image from '@/assets/img/rollers.png'
@@ -8,9 +9,12 @@ import image from '@/assets/img/rollers.png'
 export default {
   name: 'App',
   components: {
-    ItemCard
+    ItemCard, HeaderNav
   },
   methods: {
+    onSearch(query) {
+
+    }
   },
   watch: {
     syncedText() {
@@ -48,32 +52,36 @@ export default {
 </script>
 
 <template>
-<div class="catalog for-test">
-  <item-card :item="items[0]" v-for="i in 1"/>
-</div>
-<div class="for-test">
-  <round-button :style='`round`'>obama</round-button>
-  <round-button :style='`round`'>obama</round-button>
-  <round-button :style='`round`'>obama</round-button>
-</div>
-<div class="for-test">
-  <search-field v-model="searchText"/>
-</div>
-<div class="for-test">
-  <linear-loader/>
-<p class="test">Загружаем</p>
-</div>
-<div class="for-test">
-  <button-switcher v-model="syncedText" :options="['Зимнее', 'Летнее', 'Демисезон']"/>
-</div>
+  <header><header-nav v-model="searchText"/></header>
+  <div class="page-body container">
+    <div class="catalog content">
+      <item-card :item="items[0]" v-for="i in 10"/>
+    </div>
+  </div>
+  <footer></footer>
 </template>
 
 <style>
+  #app {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 65px auto 200px;
+  }
+
   .catalog {
     display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 20px;
     
+  }
+
+  html {
+    min-height: 100%;
+  }
+
+  body {
+    height: 100%;
+    background-color: var(--color-main-background);
   }
 
   .for-test {

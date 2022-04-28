@@ -49,7 +49,8 @@ export default {
     }
     
     .item-card {
-        max-width: 380px;
+        min-width: 380px;
+        max-width: 410px;
         height: 300px;
         position: relative;
         overflow: hidden;
@@ -97,6 +98,7 @@ export default {
 
     .description-inner.static {
         padding-top: 25px;
+        box-sizing: border-box;
         position: absolute;
         bottom: 0;
 

@@ -78,6 +78,7 @@ export default {
 
     .button.switcher-inner {
         position: relative;
+        width: auto;
         z-index: 2;
         color: var(--color-steel-gray);
         border-radius: 30px;
