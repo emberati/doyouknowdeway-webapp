@@ -16,11 +16,11 @@ export default {
       </div>
       <div class="info-block" id="links">
         <h3>Навигация</h3>
-        <p class="item">Главная</p>
-        <p class="item">Профиль</p>
-        <p class="item">Мои аренды</p>
-        <p class="item">Каталог</p>
-        <p class="item">Помощь</p>
+        <p class="item" @click="$router.push('/')">Главная</p>
+        <p class="item" @click="$router.push('/profile')">Профиль</p>
+        <p class="item" @click="$router.push('/rents')">Мои аренды</p>
+        <p class="item" @click="$router.push('/catalog')">Каталог</p>
+        <p class="item" @click="$router.push('/help')">Помощь</p>
       </div>
     </div>
   </div>
@@ -64,5 +64,10 @@ export default {
     width: 100%;
     margin-top: 2px;
     background-color: var(--color-main-font);
+  }
+
+  #links p:hover {
+    cursor: pointer;
+    background-color: var(--color-main-layer);
   }
 </style>
