@@ -2,7 +2,7 @@
 import ItemCard from "@/components/ItemCard"
 import HeaderNav from "@/components/HeaderNav"
 import FooterInfo from "@/components/FooterInfo"
-// import Catalog from "@/components/pages/Catalog"
+
 
 export default {
   name: 'App',

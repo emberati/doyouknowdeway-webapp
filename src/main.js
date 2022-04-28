@@ -7,6 +7,7 @@ import ui from '@/components/ui'
 import './assets/css/colors.css'
 import './assets/css/reset.css'
 import './assets/css/fonts.css'
+import './assets/css/icons.css'
 import './assets/css/global.css'
 
 const app = createApp(App)
