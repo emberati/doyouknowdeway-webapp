@@ -2,6 +2,7 @@
 
 /* FOR DEV ONLY START */
 import image from '@/assets/img/rollers.png'
+import ButtonChecker from '@/components/ButtonChecker'
 /* FOR DEV ONLY END */
 
 import ItemCard from '@/components/ItemCard'
@@ -9,30 +10,26 @@ import ItemCard from '@/components/ItemCard'
 export default {
     name: 'Catalog',
     components: {
-        ItemCard
+        ItemCard,
+        ButtonChecker
+    },
+    props: {
+      items: {
+        type: Array[Object],
+        required: true
+      }
     },
     data: () => ({
-        items: [
-          {
-            age_id: 0,
-            cost_per_hour: 1199,
-            description: `
-            Всё ускоряющаяся эволюция компьютерных технологий предъявила жёсткие требования к производителям как собственно вычислительной техники, так и периферийных устройств.`,
-            name: "Коньки роликовые",
-            season_id: 0,
-            imageUrl: image
-          },
-          {
-            age_id: 1,
-            cost_per_hour: 3299,
-            description: `
-            Официально заявляю читающим: даёшь подъем операции Ы! Хуже с ёлкой бог экспериментирует. Пиши: зять съел яйцо, ещё чан брюквы… эх! Ждем фигу!`,
-            name: "Коньки роликовые",
-            season_id: 0,
-            imageUrl: image
-          },
-        ],
+      filterCategories: [],
     }),
+    watch: {
+      filterCategories: {
+        handler(value) {
+          console.log(this.filterCategories)
+        },
+        deep: true
+      }
+    }
 }
 </script>
 
@@ -41,17 +38,25 @@ export default {
     <div class="content">
       <section>
         <h1>Фильтр по категориям</h1>
-        <h2>Фильтр по категориям</h2>
+        <button-checker
+          :options="
+            ['Летнее', 'Зимнее', 'Демисезон',
+            'Мужское', 'Женское', 'Для детей']"
+        />
+        <!-- v-model="filterCategories" -->
       </section>
-      <section id="items-catalog">  
-        <item-card :item="items[0]" v-for="i in 3"/>
+      <section id="items-catalog">
+        <h1>Каталог товаров</h1>
+        <div class="item-list">
+          <item-card :item="items[0]" v-for="i in 10"/>
+        </div>
       </section>
     </div>
   </div>
 </template>
 
 <style scoped>
-    #items-catalog {
+    .item-list {
         display: grid;
         grid-template-columns: auto auto auto;
         grid-gap: 20px;
@@ -62,7 +67,7 @@ export default {
     }
 
     section > h1,
-    section > h2
+    section > h2,
     section > h3 {
       margin-bottom: 20px;
     }

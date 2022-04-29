@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-    <button class="button" 
+    <button class="round-button button" 
         type="button"
         :class="variant ? variant : `regular`"
     >

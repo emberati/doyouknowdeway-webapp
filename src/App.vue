@@ -2,7 +2,9 @@
 import ItemCard from "@/components/ItemCard"
 import HeaderNav from "@/components/HeaderNav"
 import FooterInfo from "@/components/FooterInfo"
-
+/* FOR DEV ONLY START */
+import image from '@/assets/img/rollers.png'
+/* FOR DEV ONLY END */
 
 export default {
   name: 'App',
@@ -12,6 +14,15 @@ export default {
   methods: {
     onSearch(query) {
 
+    },
+    async load() {
+      this.loading = true
+      let promise = await new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, 1000)
+      }).then(() => {this.loaded = this.items})
+      this.loading = false
     }
   },
   watch: {
@@ -24,7 +35,31 @@ export default {
       searchText: "",
       syncedText: "",
       primitiveText: "",
-  })
+      loaded: [],
+      items: [
+        {
+          age_id: 0,
+          cost_per_hour: 1199,
+          description: `
+          Всё ускоряющаяся эволюция компьютерных технологий предъявила жёсткие требования к производителям как собственно вычислительной техники, так и периферийных устройств.`,
+          name: "Коньки роликовые",
+          season_id: 0,
+          imageUrl: image
+        },
+        {
+          age_id: 1,
+          cost_per_hour: 3299,
+          description: `
+          Официально заявляю читающим: даёшь подъем операции Ы! Хуже с ёлкой бог экспериментирует. Пиши: зять съел яйцо, ещё чан брюквы… эх! Ждем фигу!`,
+          name: "Коньки роликовые",
+          season_id: 0,
+          imageUrl: image
+        },
+      ],
+  }),
+  mounted() {
+    this.load()
+  }
 }
 </script>
 
@@ -32,7 +67,12 @@ export default {
   <header>
     <header-nav v-model="searchText" :loading="loading"/>
   </header>
-  <router-view class="page-body"/>
+
+  <router-view v-if="!loading" class="page-body" :items="loaded"/>
+  <div v-else class="">
+    <h1 style="text-align: center; margin-top: 50px;">Загружаем...</h1>
+    <linear-loader/>
+  </div>
   <footer>
     <footer-info/>
   </footer>

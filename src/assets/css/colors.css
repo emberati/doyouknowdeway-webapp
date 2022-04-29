@@ -1,6 +1,7 @@
 :root {
     --color-main-layer: #D9E0FF;
     --color-main-accent: #455BED;
+    --color-main-accent-light: #6A7CF1;
     --color-main-accent-transparent: rgba(69, 91, 237, 80%);
     --color-main-background: #F6F8FA;
     --color-main-foreground: hsl(120, 100%, 100%);

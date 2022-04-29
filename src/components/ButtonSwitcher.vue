@@ -2,7 +2,10 @@
 export default {
     name: 'button-switcher',
     props: {
-        options: Array[String]
+        options: {
+            type: Array[String],
+            required: true
+        }
     },
     data: () => ({
         currentElement: null,
