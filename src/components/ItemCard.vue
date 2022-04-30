@@ -1,44 +1,51 @@
 <template>
-  <div class="item-card rounded">
+  <div ref="itemCard" class="item-card rounded">
     <div class="image-wrapper rounded">
-      <img @click.stop :src="item.imageUrl" alt="">
+      <img :src="item.imageUrl" alt="">
     </div>
     <div
       ref="description"
       class="description rounded"
-      @click="expandDescription">
+      @mousedown="onMouseDown"
+      @mouseup="onMouseUp">
       <div class="description-inner float">
         <h2>{{ item.name }}</h2>
         <p>
           <ul class="characteristics">
             <li>
               <span class="characteristic-name">Размер: </span>
-              <span>43 (EUR)</span>
+              <span>{{ item.size }}</span>
             </li>
             <li>
               <span class="characteristic-name">Возраст: </span>
-              <span>старше 15-ти</span>
+              <span>{{item.age_id}}</span>
             </li>
             <li>
               <span class="characteristic-name">Пол: </span>
-              <span>унисекс</span>
+              <span>{{ item.sex_id }}</span>
             </li>
             <li>
               <span class="characteristic-name">Сезон: </span>
-              <span>весна-лето</span>
+              <span>{{ item.season_id }}</span>
             </li>
           </ul>
         </p>
         <p>{{ item.description }}</p>
       </div>
       <div class="description-inner static">
-        <div class="action-bar" >
+        <div class="action-bar">
           <span class="price-wrapper">
             <p class="price">
               {{ item.cost_per_hour }}₽/час
             </p>
           </span>
-          <round-button :variant="`white`" @click.stop @click="check()">Добавить</round-button>
+          <round-button
+            :variant="'white'"
+            @mousedown.stop
+            @mouseup.stop
+            @click="onButtonAddClicked">
+              Добавить
+            </round-button>
         </div>
       </div>
     </div>
@@ -58,18 +65,27 @@ export default {
     }
   },
   data: () => ({
-    descriptionElement: Object
+    descriptionElement: Object,
+    itemCardElement: Object
   }),
   methods: {
-    check() {
-      console.log('button clicked')
+    onMouseDown() {
+      this.itemCardElement.classList.add('clicked')
+      console.log('mousedown')
     },
-    expandDescription() {
+    onMouseUp() {
+      this.itemCardElement.classList.remove('clicked')
       this.descriptionElement.classList.toggle('expanded')
+      console.log('mouseup')
+    },
+    onButtonAddClicked(e) {
+      console.log(e.target.innerHTML)
     }
   },
   mounted() {
     this.descriptionElement = this.$refs.description
+    this.itemCardElement = this.$refs.itemCard
+    // this.descriptionElement.setAttribute('tabindex', '0')
   }
 }
 </script>
@@ -107,31 +123,33 @@ h2 {
   background-color: white;
   border: 1px solid var(--color-platinum-gray);
 
-  transition-property: transform;
+  transition-property: transform, box-shadow, border;
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
   transition-delay: 0s;
 }
 
 .item-card:hover {
-  /* transition: transform .1s cubic-bezier(.29, 1.01, 1, -0.68); */
-  /* transform: translateY(-10px); */
-  transition: box-shadow .2s ease-in-out;
-  border-color: var(--color-main-accent);
+  border: 1px solid var(--color-main-accent);
   box-shadow: 0 0 0 5px var(--color-main-layer);
 
+  transition-property: transform, box-shadow, border;
+  transition-duration: .1s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
+}
+
+.item-card.clicked {
+  transform: scale(0.98);
   transition-property: transform, height;
   transition-duration: .1s;
   transition-timing-function: ease-in-out;
   transition-delay: 0s;
 }
 
-.item-card:active {
-  transform: scale(0.98);
-  transition-property: transform, height;
-  transition-duration: .1s;
-  transition-timing-function: ease-in-out;
-  transition-delay: 0s;
+.item-card:focus {
+  border: 1px solid var(--color-main-accent);
+  box-shadow: 0 0 0 5px var(--color-main-layer);
 }
 
 .item-card * {
@@ -146,7 +164,7 @@ h2 {
   width: 100%;
   min-height: 45%;
   max-height: 45%;
-  
+
   background-color: var(--color-main-accent-transparent);
 
   transition-property: min-height, width, margin, background-color;

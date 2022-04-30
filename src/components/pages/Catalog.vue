@@ -43,7 +43,6 @@ export default {
             ['Летнее', 'Зимнее', 'Демисезон',
             'Мужское', 'Женское', 'Для детей']"
         />
-        <!-- v-model="filterCategories" -->
       </section>
       <section id="items-catalog">
         <h1>Каталог товаров</h1>

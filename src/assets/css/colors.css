@@ -3,6 +3,8 @@
     --color-main-accent: #455BED;
     --color-main-accent-light: #6A7CF1;
     --color-main-accent-transparent: rgba(69, 91, 237, 80%);
+    --color-main-danger: #F65E5E;
+    --color-main-danger-transparent: rgba(246, 94, 94, 80%);
     --color-main-background: #F6F8FA;
     --color-main-foreground: hsl(120, 100%, 100%);
     --color-platinum-gray: #E5E5E5;

@@ -43,7 +43,8 @@ export default {
     }
 
     .button.white:active {
-        box-shadow: 0 0 0 5px var(--color-main-layer)!important;
+        color: var(--color-main-foreground);
+        background-color: transparent;
     }
 
     /* BUTTON REGULAR STYLE */
@@ -64,7 +65,6 @@ export default {
     .button.regular:active {
         color: var(--color-main-foreground);
         background-color: var(--color-main-accent);
-        box-shadow: 0 0 0 5px var(--color-main-layer)!important;
     }
 
     /* BUTTON SUBMIT STYLE */
@@ -87,5 +87,26 @@ export default {
     .button.submit:active {
         color: var(--color-main-accent);
         background-color: var(--color-main-foreground);
+    }
+
+    /* BUTTON DANGER STYLE */
+
+    .button.danger {
+        color: var(--color-main-danger);
+        border: 1px solid var(--color-main-danger);
+    }
+
+    .button.danger:hover {
+        color: var(--color-main-foreground);
+        background-color: var(--color-main-danger);
+    }
+
+    .button.danger:focus {
+        box-shadow: 0 0 0 5px var(--color-main-danger-transparent);
+    }
+
+    .button.danger:active {
+        color: var(--color-main-danger);
+        background-color: transparent;
     }
 </style>
