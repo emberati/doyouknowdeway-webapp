@@ -20,14 +20,11 @@ export default {
       }
     },
     data: () => ({
-      filterCategories: [],
+      checkedFilters: [],
     }),
-    watch: {
-      filterCategories: {
-        handler(value) {
-          console.log(this.filterCategories)
-        },
-        deep: true
+    methods: {
+      filterItems(filters) {
+        console.log(filters)
       }
     }
 }
@@ -42,6 +39,7 @@ export default {
           :options="
             ['Летнее', 'Зимнее', 'Демисезон',
             'Мужское', 'Женское', 'Для детей']"
+          @checked="filterItems"
         />
       </section>
       <section id="items-catalog">

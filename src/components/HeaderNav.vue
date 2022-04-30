@@ -11,7 +11,8 @@ export default {
     data: () => ({
         searchText: '',
         hover: false,
-        selection: Object
+        selection: Object,
+        authorized: false,
     }),
     methods: {
         search(data) {
@@ -22,6 +23,15 @@ export default {
             this.selection.style.left = `${e.offsetLeft}px`
         },
     },
+    computed: {
+        profileLabel() {
+            const label = {
+                false: 'Войти',
+                true: 'Профиль'
+            }
+            return label[this.authorized]
+        },
+    },
     mounted() {
         this.selection = this.$refs.selection
     }
@@ -29,7 +39,7 @@ export default {
 </script>
 
 <template>
-  <div class="header-nav">
+  <div class="header-nav" :class="{'authorized': authorized}" >
     <div class="header-nav-outer container">
       <div class="header-nav-inner content">
         <nav>
@@ -37,7 +47,7 @@ export default {
             :icon="'icon-profile'"
             :link="'/profile'"
             @hover="onHover"
-          >Профиль</nav-button>
+          >{{profileLabel}}</nav-button>
           <nav-button
             :icon="'icon-rents'"
             :link="'/rents'"
@@ -106,6 +116,14 @@ export default {
 
     nav:hover .selection {
         background-color: var(--color-main-accent);
+    }
+</style>
+
+<style>
+    .header-nav.authorized i.icon-profile {
+        background-color: var(--color-main-layer);
+        border-radius: 20px;
+        box-shadow: 0 0 0 3px var(--color-main-layer);
     }
 </style>
 
