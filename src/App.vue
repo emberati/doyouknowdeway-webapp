@@ -2,9 +2,8 @@
 import ItemCard from "@/components/ItemCard"
 import HeaderNav from "@/components/HeaderNav"
 import FooterInfo from "@/components/FooterInfo"
-/* FOR DEV ONLY START */
-import image from '@/assets/img/rollers.png'
-/* FOR DEV ONLY END */
+
+import {useGlobalStore} from '@/store/global'
 
 export default {
   name: 'App',
@@ -16,13 +15,7 @@ export default {
 
     },
     async load() {
-      this.loading = true
-      let promise = await new Promise(resolve => {
-        setTimeout(() => {
-          resolve()
-        }, 1000)
-      }).then(() => {this.loaded = this.items})
-      this.loading = false
+
     }
   },
   watch: {
@@ -31,47 +24,31 @@ export default {
     }
   },
   data: () => ({
-      loading: false,
-      searchText: "",
-      syncedText: "",
-      primitiveText: "",
-      loaded: [],
-      items: [
-        {
-          age_id: 'старше 15-ти',
-          sex_id: 'унисекс', // сделать геттеры отображаемых значений по id
-          season_id: 'весна-лето',
-          size: '43 (EUR)',
-          cost_per_hour: 199,
-          description: `
-          Всё ускоряющаяся эволюция компьютерных технологий предъявила жёсткие требования к производителям как собственно вычислительной техники, так и периферийных устройств.`,
-          name: "Коньки роликовые",
-          
-          imageUrl: image
-        },
-        {
-          age_id: 1,
-          cost_per_hour: 299,
-          description: `
-          Официально заявляю читающим: даёшь подъем операции Ы! Хуже с ёлкой бог экспериментирует. Пиши: зять съел яйцо, ещё чан брюквы… эх! Ждем фигу!`,
-          name: "Коньки роликовые",
-          season_id: 0,
-          imageUrl: image
-        },
-      ],
+    store: null,
+    loading: false,
+    searchText: "",
+    syncedText: "",
+    primitiveText: "",
+    items: []
   }),
+  setup() {
+    console.log('setup')
+  },
   mounted() {
-    this.load()
+    this.store = useGlobalStore()
+    this.store.fetchItems()
+    this.items = this.store.getItems
+    console.log(this.items)
   }
 }
 </script>
 
 <template>
   <header>
-    <header-nav v-model="searchText" :loading="loading"/>
+    <header-nav v-model="searchText" :loading="store.loading"/>
   </header>
 
-  <router-view v-if="!loading" class="page-body" :items="loaded"/>
+  <router-view v-if="store && items && !store.loading" class="page-body" :items="items"/>
   <div v-else class="">
     <h1 style="text-align: center; margin-top: 50px;">Загружаем...</h1>
     <linear-loader/>
