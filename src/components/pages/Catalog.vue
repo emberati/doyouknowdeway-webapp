@@ -1,4 +1,7 @@
 <script>
+import {useCatalogStore} from '@/store/catalog'
+import {useGlobalStore} from '@/store/global'
+import {storeToRefs} from 'pinia'
 
 /* FOR DEV ONLY START */
 import image from '@/assets/img/rollers.png'
@@ -17,15 +20,42 @@ export default {
       items: {
         type: Array[Object],
         required: true
+      },
+      searchQuery: String,
+    },
+    setup() {
+      const catalog = useCatalogStore()
+      const global = useGlobalStore()
+
+      const {
+        isLoading
+      } = storeToRefs(global)
+
+      const {
+        sortedItems,
+        getAllCategories,
+        filteredItems,
+        searchedItems
+      } = storeToRefs(catalog)
+
+      const {
+        setItems,
+        checkCategoryById,
+        setCategoryFilters
+      } = catalog
+
+      return {
+        sortedItems,
+        getAllCategories,
+        setCategoryFilters,
+        setItems,
+        filteredItems,
+        searchedItems,
+        checkCategoryById
       }
     },
-    data: () => ({
-      checkedFilters: [],
-    }),
-    methods: {
-      filterItems(filters) {
-        console.log(filters)
-      }
+    mounted() {
+      this.setItems(this.items)
     }
 }
 </script>
@@ -36,16 +66,14 @@ export default {
       <section>
         <h1>Фильтр по категориям</h1>
         <button-checker
-          :options="
-            ['Летнее', 'Зимнее', 'Демисезон',
-            'Мужское', 'Женское', 'Для детей']"
-          @checked="filterItems"
+          :options="getAllCategories"
+          @checked="setCategoryFilters"
         />
       </section>
       <section id="items-catalog">
         <h1>Каталог товаров</h1>
         <div class="item-list">
-          <item-card :item="items[0]" v-for="i in 10"/>
+          <item-card :key="item.id" :item="item" v-for="item in searchedItems"/>
         </div>
       </section>
     </div>

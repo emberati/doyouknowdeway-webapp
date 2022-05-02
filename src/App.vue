@@ -2,9 +2,10 @@
 import ItemCard from "@/components/ItemCard"
 import HeaderNav from "@/components/HeaderNav"
 import FooterInfo from "@/components/FooterInfo"
-/* FOR DEV ONLY START */
-import image from '@/assets/img/rollers.png'
-/* FOR DEV ONLY END */
+
+import { useGlobalStore } from '@/store/global'
+import { storeToRefs } from 'pinia'
+import {ref} from 'vue'
 
 export default {
   name: 'App',
@@ -12,17 +13,14 @@ export default {
     ItemCard, HeaderNav, FooterInfo
   },
   methods: {
-    onSearch(query) {
-
+    async onSearch(query) {
+      this.store.query = query
+      // global.setLoading(true)
+      // this.items = await searchItems(store.items, global.query)
+      // global.setLoading(false)
     },
     async load() {
-      this.loading = true
-      let promise = await new Promise(resolve => {
-        setTimeout(() => {
-          resolve()
-        }, 1000)
-      }).then(() => {this.loaded = this.items})
-      this.loading = false
+
     }
   },
   watch: {
@@ -31,48 +29,45 @@ export default {
     }
   },
   data: () => ({
-      loading: false,
-      searchText: "",
-      syncedText: "",
-      primitiveText: "",
-      loaded: [],
-      items: [
-        {
-          age_id: 'старше 15-ти',
-          sex_id: 'унисекс', // сделать геттеры отображаемых значений по id
-          season_id: 'весна-лето',
-          size: '43 (EUR)',
-          cost_per_hour: 199,
-          description: `
-          Всё ускоряющаяся эволюция компьютерных технологий предъявила жёсткие требования к производителям как собственно вычислительной техники, так и периферийных устройств.`,
-          name: "Коньки роликовые",
-          
-          imageUrl: image
-        },
-        {
-          age_id: 1,
-          cost_per_hour: 299,
-          description: `
-          Официально заявляю читающим: даёшь подъем операции Ы! Хуже с ёлкой бог экспериментирует. Пиши: зять съел яйцо, ещё чан брюквы… эх! Ждем фигу!`,
-          name: "Коньки роликовые",
-          season_id: 0,
-          imageUrl: image
-        },
-      ],
+    // store: null
+    searchText: "",
+    syncedText: "",
+    primitiveText: "",
   }),
-  mounted() {
-    this.load()
+  setup() {
+    console.log('setup')
+    const store = useGlobalStore()
+
+    const {
+      fetchItems,
+      setLoading
+    } = store
+
+    const {
+      isLoading,
+      getItems
+    } = storeToRefs(store)
+
+    return {
+      store,
+      fetchItems,
+      isLoading,
+      setLoading,
+      getItems
+    }
+  },
+  async mounted() {
+    await this.fetchItems()
   }
 }
 </script>
 
 <template>
   <header>
-    <header-nav v-model="searchText" :loading="loading"/>
+    <header-nav :modelValue="store.query" @update:modelValue="onSearch" :loading="isLoading"/>
   </header>
-
-  <router-view v-if="!loading" class="page-body" :items="loaded"/>
-  <div v-else class="">
+  <router-view v-if="!isLoading" class="page-body" :items="store.getItems"/>
+  <div v-else>
     <h1 style="text-align: center; margin-top: 50px;">Загружаем...</h1>
     <linear-loader/>
   </div>
@@ -91,6 +86,7 @@ export default {
   html {
     min-height: 100%;
     height: 100%;
+    overflow-y: scroll;
   }
 
   .header-bar {
