@@ -38,7 +38,7 @@ export default {
         width: fit-content;
         border: 1px solid var(--color-main-accent);
         border-radius: 20px;
-        background-color: var(--color-main-foreground);
+        background-color: var(--color-main-accent);
 
         transition: box-shadow .2s ease-in-out;
     }
@@ -60,6 +60,7 @@ export default {
         border-radius: 20px;
 
         transition: width .3s ease-in-out;
+        background-color: var(--color-main-foreground);
     }
 
     .search-input:focus {

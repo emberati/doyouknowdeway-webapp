@@ -5,7 +5,6 @@ import FooterInfo from "@/components/FooterInfo"
 
 import { useGlobalStore } from '@/store/global'
 import { storeToRefs } from 'pinia'
-import {ref} from 'vue'
 
 export default {
   name: 'App',
@@ -13,60 +12,37 @@ export default {
     ItemCard, HeaderNav, FooterInfo
   },
   methods: {
-    async onSearch(query) {
-      this.store.query = query
-      // global.setLoading(true)
-      // this.items = await searchItems(store.items, global.query)
-      // global.setLoading(false)
-    },
-    async load() {
 
-    }
   },
   watch: {
-    syncedText() {
-      console.log(this.syncedText)
-    }
   },
   data: () => ({
-    // store: null
-    searchText: "",
     syncedText: "",
     primitiveText: "",
   }),
   setup() {
-    console.log('setup')
     const store = useGlobalStore()
 
     const {
-      fetchItems,
-      setLoading
-    } = store
-
-    const {
       isLoading,
-      getItems
     } = storeToRefs(store)
 
     return {
       store,
-      fetchItems,
       isLoading,
-      setLoading,
-      getItems
     }
   },
-  async mounted() {
-    await this.fetchItems()
+  mounted() {
+
   }
 }
 </script>
 
 <template>
   <header>
-    <header-nav :modelValue="store.query" @update:modelValue="onSearch" :loading="isLoading"/>
+    <header-nav v-model="store.query" :loading="isLoading"/>
   </header>
-  <router-view v-if="!isLoading" class="page-body" :items="store.getItems"/>
+  <router-view v-if="!isLoading" class="page-body"/>
   <div v-else>
     <h1 style="text-align: center; margin-top: 50px;">Загружаем...</h1>
     <linear-loader/>

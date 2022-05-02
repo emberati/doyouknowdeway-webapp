@@ -24,10 +24,9 @@ function itemMatch(item, query) {
 }
 
 function filterItems(items, categories) {
-  console.log("filtering...")
+  if (!categories || !categories.length) return items
+
   let result = []
-  console.log(items.length)
-  
   for (let i = 0; i < items.length; i++) {
     let item = items[i]
     let match = false
@@ -41,15 +40,12 @@ function filterItems(items, categories) {
     }
     if (match) result.push(item)
   }
-  console.log('result:', result)
   return result
 }
 
 function searchItems(items, query) {
   query = query.match(/[^ ]+/g)
   if (!query) return items
-
-  console.log('global query: ', query)
 
   let itemsMatchName = []
   let itemsMatchSize = []
@@ -68,6 +64,7 @@ function searchItems(items, query) {
   if (itemsMatchNameAndSize.length > 0) return itemsMatchNameAndSize
   if (itemsMatchName.length > 0) return itemsMatchName
   if (itemsMatchDescription.length > 0) return itemsMatchDescription
+  return []
 }
 
 export const useCatalogStore = defineStore('catalog', {
@@ -132,27 +129,31 @@ export const useCatalogStore = defineStore('catalog', {
       ]
   }),
   getters: {
+    getItems(store) {
+      const global = useGlobalStore()
+      let findedItems = searchItems(store.items, global.query)
+      let filteredItems = filterItems(findedItems, this.selectedCategories)
+      return filteredItems
+    },
     getAllCategories(store) {
       return store.allCategories
     },
     sortedItems(store) {
       return store.items
     },
-    filteredItemsByCategories: (store) => {
-      if (store.selectedCategories.length == 0) {
-        console.log('Selected Categories is empty!: ', store.selectedCategories)
-        return store.items
-      }
+    // filteredItems(store) {
+    //   if (store.selectedCategories.length == 0) {
+    //     console.log('Selected Categories is empty!: ', store.selectedCategories)
+    //     return store.items
+    //   }
 
-      return filterItems(store.items, store.selectedCategories)
-    },
-    searchedItems(store) {
-      const global = useGlobalStore()
-      
-      let result = searchItems(store.items, global.query)
-      console.log('sdfgsdfg')
-      return result
-    }
+    //   return filterItems(store.items, store.selectedCategories)
+    // },
+    // searchedItems(store) {
+    //   const global = useGlobalStore()
+    //   let result = searchItems(store.items, global.query)
+    //   return result
+    // }
   },
   actions: {
     checkCategoryById(id) {
@@ -161,11 +162,20 @@ export const useCatalogStore = defineStore('catalog', {
     },
     setCategoryFilters(filters) {
       this.selectedCategories = filters
-    //   console.log('Filters updated: ', filters)
-    //   console.log('selectedCategories:', this.selectedCategories)
     },
-    setItems(items) {
+    setCatalogItems(items) {
       this.items = items
-    }
+    },
+    async fetchItems() {
+        if (this.items && this.items.length > 0) return
+        const global = useGlobalStore()
+        global.setLoading(true)
+        let promise = await new Promise(resolve => {
+          setTimeout(() => {
+            resolve()
+          }, 1000)
+        }).then(() => {this.items = global.testFetchData})
+        global.setLoading(false)
+      }
   }
 })
