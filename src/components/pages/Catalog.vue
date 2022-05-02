@@ -17,13 +17,10 @@ export default {
         ButtonChecker
     },
     props: {
-      items: {
-        type: Array[Object],
-        required: true
-      },
-      searchQuery: String,
+
     },
     setup() {
+      console.log('setup')
       const catalog = useCatalogStore()
       const global = useGlobalStore()
 
@@ -32,6 +29,7 @@ export default {
       } = storeToRefs(global)
 
       const {
+        getItems,
         sortedItems,
         getAllCategories,
         filteredItems,
@@ -39,23 +37,32 @@ export default {
       } = storeToRefs(catalog)
 
       const {
-        setItems,
+        fetchItems,
+        setCatalogItems,
         checkCategoryById,
         setCategoryFilters
       } = catalog
 
       return {
+        getItems,
+        fetchItems,
         sortedItems,
         getAllCategories,
         setCategoryFilters,
-        setItems,
+        setCatalogItems,
         filteredItems,
         searchedItems,
         checkCategoryById
       }
     },
-    mounted() {
-      this.setItems(this.items)
+    async mounted() {
+      console.log('loading...')
+      await this.fetchItems()
+      console.log('loading done.')
+      console.log(this.getItems)
+    },
+    unmounted() {
+      console.log('unmounted')
     }
 }
 </script>
@@ -72,8 +79,8 @@ export default {
       </section>
       <section id="items-catalog">
         <h1>Каталог товаров</h1>
-        <div class="item-list">
-          <item-card :key="item.id" :item="item" v-for="item in searchedItems"/>
+        <div class="item-list" :class="{'compact': getItems.length < 3}">
+          <item-card :key="item.id" :item="item" v-for="item in getItems"/>
         </div>
       </section>
     </div>
@@ -85,6 +92,14 @@ export default {
         display: grid;
         grid-template-columns: auto auto auto;
         grid-gap: 20px;
+    }
+
+    .item-list.compact {
+      display: flex;
+    }
+
+    .button-checker {
+      margin-bottom: -20px;
     }
 
     section {

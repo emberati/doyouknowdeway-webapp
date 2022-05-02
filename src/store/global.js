@@ -9,7 +9,6 @@ export const useGlobalStore = defineStore({
   state: () => ({
     loading: false,
     query: '',
-    items: [],
     testFetchData: [
       {
         id: 0,
@@ -49,24 +48,10 @@ export const useGlobalStore = defineStore({
     isLoading(store) {
         return store.loading
     },
-    getItems(store) {
-        return store.items
-    }
   },
   actions: {
     setLoading(value) {
       this.loading = value
-    },
-    async fetchItems() {
-      console.log('педераст')
-      this.setLoading(true)
-      let promise = await new Promise(resolve => {
-        setTimeout(() => {
-          resolve()
-        }, 1000)
-      }).then(() => {this.items = this.testFetchData})
-      console.log('педераст 2')
-      this.setLoading(false)
     }
   },
 })
