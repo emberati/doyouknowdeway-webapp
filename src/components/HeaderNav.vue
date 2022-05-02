@@ -117,6 +117,7 @@ export default {
     .selection {
         content: "";
         position: absolute;
+        z-index: 3;
         bottom: -6px;
         height: 6px;
         width: 50px;
