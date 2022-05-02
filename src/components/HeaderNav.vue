@@ -12,16 +12,25 @@ export default {
         searchText: '',
         hover: false,
         selection: Object,
+        hoveredElement: Object,
         authorized: false,
     }),
     methods: {
         search(data) {
             this.$emit('update:modelValue', data)
         },
-        onHover(e) {
-            this.selection.style.width = `${e.offsetWidth}px`
-            this.selection.style.left = `${e.offsetLeft}px`
+        resizeSelection() {
+            this.selection.style.width = `${this.hoveredElement.offsetWidth}px`
+            this.selection.style.left = `${this.hoveredElement.offsetLeft}px`
         },
+        onNavButtonHover(e) {
+            this.hoveredElement = e
+            this.resizeSelection()
+        },
+        onHeaderResize() {
+            console.log('resized')
+            this.resizeSelection()
+        }
     },
     computed: {
         profileLabel() {
@@ -33,30 +42,35 @@ export default {
         },
     },
     mounted() {
+        window.addEventListener('resize', () => {
+            this.onHeaderResize()
+        })
         this.selection = this.$refs.selection
-    }
+    },
 }
 </script>
 
 <template>
-  <div class="header-nav" :class="{'authorized': authorized}" >
+  <div class="header-nav"
+    :class="{'authorized': authorized}"
+    @resize="onHeaderResize">
     <div class="header-nav-outer container">
       <div class="header-nav-inner content">
         <nav>
           <nav-button
             :icon="'icon-profile'"
             :link="'/profile'"
-            @hover="onHover"
+            @hover="onNavButtonHover"
           >{{profileLabel}}</nav-button>
           <nav-button
             :icon="'icon-rents'"
             :link="'/rents'"
-            @hover="onHover"
+            @hover="onNavButtonHover"
           >Мои аренды</nav-button>
           <nav-button
             :icon="'icon-catalog'"
             :link="'/catalog'"
-            @hover="onHover"
+            @hover="onNavButtonHover"
           >Каталог</nav-button>
           <div class="selection" ref="selection"></div>
         </nav>

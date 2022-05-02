@@ -3,7 +3,9 @@ import ItemCard from "@/components/ItemCard"
 import HeaderNav from "@/components/HeaderNav"
 import FooterInfo from "@/components/FooterInfo"
 
-import {useGlobalStore} from '@/store/global'
+import { useGlobalStore } from '@/store/global'
+import { storeToRefs } from 'pinia'
+import {ref} from 'vue'
 
 export default {
   name: 'App',
@@ -11,8 +13,11 @@ export default {
     ItemCard, HeaderNav, FooterInfo
   },
   methods: {
-    onSearch(query) {
-
+    async onSearch(query) {
+      this.store.query = query
+      // global.setLoading(true)
+      // this.items = await searchItems(store.items, global.query)
+      // global.setLoading(false)
     },
     async load() {
 
@@ -24,32 +29,45 @@ export default {
     }
   },
   data: () => ({
-    store: null,
-    loading: false,
+    // store: null
     searchText: "",
     syncedText: "",
     primitiveText: "",
-    items: []
   }),
   setup() {
     console.log('setup')
+    const store = useGlobalStore()
+
+    const {
+      fetchItems,
+      setLoading
+    } = store
+
+    const {
+      isLoading,
+      getItems
+    } = storeToRefs(store)
+
+    return {
+      store,
+      fetchItems,
+      isLoading,
+      setLoading,
+      getItems
+    }
   },
-  mounted() {
-    this.store = useGlobalStore()
-    this.store.fetchItems()
-    this.items = this.store.getItems
-    console.log(this.items)
+  async mounted() {
+    await this.fetchItems()
   }
 }
 </script>
 
 <template>
   <header>
-    <header-nav v-model="searchText" :loading="store.loading"/>
+    <header-nav :modelValue="store.query" @update:modelValue="onSearch" :loading="isLoading"/>
   </header>
-
-  <router-view v-if="store && items && !store.loading" class="page-body" :items="items"/>
-  <div v-else class="">
+  <router-view v-if="!isLoading" class="page-body" :items="store.getItems"/>
+  <div v-else>
     <h1 style="text-align: center; margin-top: 50px;">Загружаем...</h1>
     <linear-loader/>
   </div>
@@ -68,6 +86,7 @@ export default {
   html {
     min-height: 100%;
     height: 100%;
+    overflow-y: scroll;
   }
 
   .header-bar {
