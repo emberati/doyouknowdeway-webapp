@@ -173,9 +173,10 @@ export const useCatalogStore = defineStore('catalog', {
         let promise = await new Promise(resolve => {
           setTimeout(() => {
             resolve()
+            this.items = global.testFetchData
+            global.setLoading(false)
           }, 1000)
-        }).then(() => {this.items = global.testFetchData})
-        global.setLoading(false)
+        })
       }
   }
 })

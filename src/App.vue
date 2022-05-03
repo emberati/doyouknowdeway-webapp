@@ -42,11 +42,21 @@ export default {
   <header>
     <header-nav v-model="store.query" :loading="isLoading"/>
   </header>
-  <router-view v-if="!isLoading" class="page-body"/>
-  <div v-else>
-    <h1 style="text-align: center; margin-top: 50px;">Загружаем...</h1>
-    <linear-loader/>
-  </div>
+
+  <router-view v-slot="{ Component }">
+    <!-- Забагованая дичь, но пусть пока будет -->
+    <suspense timeout="0">
+      <template #default>
+        <component class="page-body" :is="Component"/>
+      </template>
+      <template #fallback>
+        <div>
+          <h1 style="text-align: center; margin-top: 50px;">Загружаем...</h1>
+          <linear-loader/>
+        </div>
+      </template>
+    </suspense>
+  </router-view>
   <footer>
     <footer-info/>
   </footer>
