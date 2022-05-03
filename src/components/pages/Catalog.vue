@@ -19,7 +19,7 @@ export default {
     props: {
 
     },
-    setup() {
+    async setup() {
       console.log('setup')
       const catalog = useCatalogStore()
       const global = useGlobalStore()
@@ -43,6 +43,8 @@ export default {
         setCategoryFilters
       } = catalog
 
+      await fetchItems()
+
       return {
         getItems,
         fetchItems,
@@ -56,9 +58,9 @@ export default {
       }
     },
     async mounted() {
-      console.log('loading...')
-      await this.fetchItems()
-      console.log('loading done.')
+      // console.log('loading...')
+      // await this.fetchItems()
+      // console.log('loading done.')
       console.log(this.getItems)
     },
     unmounted() {
