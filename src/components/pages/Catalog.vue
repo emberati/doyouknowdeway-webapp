@@ -4,7 +4,6 @@ import {useGlobalStore} from '@/store/global'
 import {storeToRefs} from 'pinia'
 
 /* FOR DEV ONLY START */
-import image from '@/assets/img/rollers.png'
 import ButtonChecker from '@/components/ButtonChecker'
 /* FOR DEV ONLY END */
 
