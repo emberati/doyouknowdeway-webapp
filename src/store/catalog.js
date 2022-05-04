@@ -12,7 +12,7 @@ function itemMatch(item, query) {
   query.forEach(str => {
     str = str.toLowerCase()
     nameMatch ||= item.name.toLowerCase().includes(str)
-    sizeMatch ||= str === size.toLowerCase
+    sizeMatch ||= str === size.toLowerCase()
     descriptionMatch ||= item.description.toLowerCase().includes(str)
     console.log(str, size)
   })

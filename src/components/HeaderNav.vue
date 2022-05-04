@@ -89,10 +89,12 @@ export default {
     }
 
     .header-nav {
+        position: fixed;
+        z-index: 5;
         width: 100%;
         height: 60px;
         box-sizing: border-box;
-        position: relative;
+        
         background-color: var(--color-main-foreground);
         border-bottom: 1px solid var(--color-main-accent);
         box-shadow: 0 0 0 5px var(--color-main-layer);

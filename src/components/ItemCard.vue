@@ -1,3 +1,42 @@
+<script>
+export default {
+  emits: ['itemAdd'],
+  props: {
+    item: {
+      age_id: Number,
+      cost_per_hour: Number,
+      description: String,
+      name: String,
+      season_id: Number,
+      imageUrl: String
+    }
+  },
+  data: () => ({
+    descriptionElement: Object,
+    itemCardElement: Object
+  }),
+  methods: {
+    onMouseDown() {
+      this.itemCardElement.classList.add('clicked')
+      console.log('mousedown')
+    },
+    onMouseUp() {
+      this.itemCardElement.classList.remove('clicked')
+      this.descriptionElement.classList.toggle('expanded')
+      console.log('mouseup')
+    },
+    onButtonAddClicked(e) {
+      this.$emit('itemAdd', this.item)
+    }
+  },
+  mounted() {
+    this.descriptionElement = this.$refs.description
+    this.itemCardElement = this.$refs.itemCard
+    // this.descriptionElement.setAttribute('tabindex', '0')
+  }
+}
+</script>
+
 <template>
   <div ref="itemCard" class="item-card rounded">
     <div class="image-wrapper rounded">
@@ -51,45 +90,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  emits: ['itemAdd'],
-  props: {
-    item: {
-      age_id: Number,
-      cost_per_hour: Number,
-      description: String,
-      name: String,
-      season_id: Number,
-      imageUrl: String
-    }
-  },
-  data: () => ({
-    descriptionElement: Object,
-    itemCardElement: Object
-  }),
-  methods: {
-    onMouseDown() {
-      this.itemCardElement.classList.add('clicked')
-      console.log('mousedown')
-    },
-    onMouseUp() {
-      this.itemCardElement.classList.remove('clicked')
-      this.descriptionElement.classList.toggle('expanded')
-      console.log('mouseup')
-    },
-    onButtonAddClicked(e) {
-      this.$emit('itemAdd', this.item)
-    }
-  },
-  mounted() {
-    this.descriptionElement = this.$refs.description
-    this.itemCardElement = this.$refs.itemCard
-    // this.descriptionElement.setAttribute('tabindex', '0')
-  }
-}
-</script>
 
 <style scoped>
 
