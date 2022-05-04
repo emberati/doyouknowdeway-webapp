@@ -132,8 +132,9 @@ export const useCatalogStore = defineStore('catalog', {
   getters: {
     getItems(store) {
       const global = useGlobalStore()
-      if (global.query.length < 3) return store.items
-      let findedItems = searchItems(store.items, global.query)
+      let findedItems = null
+      if (global.query.length < 3) findedItems = store.items
+      else findedItems = searchItems(store.items, global.query)
       let filteredItems = filterItems(findedItems, this.selectedCategories)
       return filteredItems
     },

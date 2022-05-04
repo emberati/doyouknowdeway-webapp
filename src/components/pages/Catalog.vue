@@ -107,9 +107,9 @@ export default {
 
 <style scoped>
     .item-list-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
     }
 
     .item-list-enter-active,
@@ -117,7 +117,7 @@ export default {
       transition: all .3s ease;
     }
 
-    .item-list-enter,
+    .item-list-enter-from,
     .item-list-leave-to {
       opacity: 0;
       transform: scale(0.98);
