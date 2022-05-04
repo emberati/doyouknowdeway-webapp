@@ -6,10 +6,6 @@ export default {
       type: String,
       required: true
     },
-    title: {
-      type: String,
-      required: true
-    },
     type: {
       type: String,
       required: false

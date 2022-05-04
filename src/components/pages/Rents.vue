@@ -31,23 +31,54 @@
           </section>
           <section class="action-block">
             <round-button :variant="'regular'">Скрыть всё</round-button>
-            <round-button :variant="'danger'">Удалить</round-button>
-            <round-button :variant="'accept'">Оплалить</round-button>
+            <round-button :variant="'danger'" @click="clearCart">Удалить</round-button>
+            <round-button :variant="'accept'" @click="archiveRent">Оплалить</round-button>
           </section>
         </div>
       </content-card>
       <section>
-          
+        <item-card
+          v-for="item in getCartItems"
+          :item="item"
+          :key="item.id"
+          @itemAdd="removeFromCart"
+        />
       </section>
     </div>
   </div>
 </template>
 
 <script>
+import {storeToRefs} from 'pinia'
+import {useRentsStore} from '@/store/rents'
+
 import ContentCard from '@/components/ContentCard'
+import ItemCard from '@/components/ItemCard'
+
 export default {
   components: {
-    ContentCard
+    ContentCard,
+    ItemCard
+  },
+  setup() {
+    const rents = useRentsStore()
+
+    const {
+      getCartItems
+    } = storeToRefs(rents)
+
+    const {
+      clearCart,
+      removeFromCart,
+      archiveRent
+    } = rents
+
+    return {
+      getCartItems,
+      clearCart,
+      removeFromCart,
+      archiveRent
+    }
   }
 }
 </script>

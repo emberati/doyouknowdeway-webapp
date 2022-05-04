@@ -54,6 +54,7 @@
 
 <script>
 export default {
+  emits: ['itemAdd'],
   props: {
     item: {
       age_id: Number,
@@ -79,7 +80,7 @@ export default {
       console.log('mouseup')
     },
     onButtonAddClicked(e) {
-      console.log(e.target.innerHTML)
+      this.$emit('itemAdd', this.item)
     }
   },
   mounted() {

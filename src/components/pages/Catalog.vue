@@ -1,6 +1,7 @@
 <script>
 import {useCatalogStore} from '@/store/catalog'
 import {useGlobalStore} from '@/store/global'
+import {useRentsStore} from '@/store/rents'
 import {storeToRefs} from 'pinia'
 
 /* FOR DEV ONLY START */
@@ -20,10 +21,11 @@ export default {
       console.log('setup')
       const catalog = useCatalogStore()
       const global = useGlobalStore()
+      const rents = useRentsStore()
 
-      const {
-        isLoading
-      } = storeToRefs(global)
+      // const {
+      //   isLoading
+      // } = storeToRefs(global)
 
       const {
         getItems,
@@ -34,16 +36,26 @@ export default {
       } = storeToRefs(catalog)
 
       const {
+        getTotalCost,
+        getCartItemsCount
+      } = storeToRefs(rents)
+
+      const {
         fetchItems,
         setCatalogItems,
         checkCategoryById,
         setCategoryFilters
       } = catalog
 
+      const {
+        addToCart
+      } = rents
+
       await fetchItems()
 
       return {
         getItems,
+        addToCart,
         fetchItems,
         sortedItems,
         getAllCategories,
@@ -80,10 +92,11 @@ export default {
         <h1>Каталог товаров</h1>
         <div class="item-list-grid">
           <transition-group name="item-list">
-            <item-card 
+            <item-card
               v-for="item in getItems"
               :item="item"
               :key="item.id"
+              @itemAdd="addToCart"
             />
           </transition-group>
         </div>

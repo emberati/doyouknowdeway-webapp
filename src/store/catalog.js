@@ -169,16 +169,16 @@ export const useCatalogStore = defineStore('catalog', {
       this.items = items
     },
     async fetchItems() {
-        if (this.items && this.items.length > 0) return
-        const global = useGlobalStore()
-        global.setLoading(true)
-        let promise = await new Promise(resolve => {
-          setTimeout(() => {
-            resolve()
-            this.items = global.testFetchData
-            global.setLoading(false)
-          }, 1000)
-        })
-      }
+      if (this.items && this.items.length > 0) return
+      const global = useGlobalStore()
+      global.setLoading(true)
+      let promise = await new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+          this.items = global.testFetchData
+          global.setLoading(false)
+        }, 1000)
+      })
+    }
   }
 })
