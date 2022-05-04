@@ -69,5 +69,6 @@ export default {
     height: 100%;
     width: auto;
     text-align: right;
+    background-color: transparent;
   }
 </style>

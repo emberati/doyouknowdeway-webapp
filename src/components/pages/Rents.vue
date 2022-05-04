@@ -11,7 +11,7 @@
             <div class="info-block">
               <editable-row 
                 :id="'rent-status'"
-                :value="'Готово к оплате'">
+                :value="getCartStatus">
                 Статус аренды:
               </editable-row>
               <editable-row 
@@ -24,7 +24,7 @@
               </editable-row>
               <editable-row 
                 :id="'rent-price'"
-                :value="'1239₽'">
+                :value="'' + getTotalCost + '₽'">
                 Общая стоимость:
               </editable-row>
             </div>
@@ -64,6 +64,8 @@ export default {
     const rents = useRentsStore()
 
     const {
+      getCartStatus,
+      getTotalCost,
       getCartItems
     } = storeToRefs(rents)
 
@@ -74,6 +76,8 @@ export default {
     } = rents
 
     return {
+      getCartStatus,
+      getTotalCost,
       getCartItems,
       clearCart,
       removeFromCart,

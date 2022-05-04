@@ -5,7 +5,7 @@ export const useRentsStore = defineStore({
   state: () => ({
     archiveRents: [],
     activeRent: {
-      status: 'Готово к оплате',
+      status: 'Корзина не собрана!',
       rentStart: '',
       rentEnd: '',
       items: [],
@@ -16,9 +16,13 @@ export const useRentsStore = defineStore({
       return store.activeRent.items
     },
     getTotalCost(store) {
-      store.activeRent.items.reduce((cost, item) => {
-        cost + item.cost_per_hour
+      return store.activeRent.items.reduce((cost, item) => {
+        return cost + item.cost_per_hour
       }, 0)
+    },
+    getCartStatus(store) {
+      if (store.activeRent.items.length) return 'Готово к оплате!'
+      else return 'Корзина не собрана!'
     },
     getCartItemsCount(store) {
         return store.activeRent.items.length
@@ -27,11 +31,15 @@ export const useRentsStore = defineStore({
   actions: {
     addToCart(item) {
       this.activeRent.items.push(item)
+      this.activeRent.status = this.getCartStatus
     },
     removeFromCart(item) {
-      this.activeRent.items.remove(item)
+    //   this.activeRent.items.remove(item)
+      console.log('Removing from cart is NOT implemented yet...')
+      this.activeRent.status = this.getCartStatus
     },
     clearCart() {
+      if (!this.activeRent.items.length) return
       this.activeRent = {
         status: 'Корзина не собрана!',
         rentStart: '',
