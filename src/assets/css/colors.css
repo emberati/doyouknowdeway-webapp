@@ -3,10 +3,14 @@
     --color-main-accent: #455BED;
     --color-main-accent-light: #6A7CF1;
     --color-main-accent-transparent: rgba(69, 91, 237, 80%);
-    --color-main-danger: #F65E5E;
-    --color-main-danger-transparent: rgba(246, 94, 94, 80%);
     --color-main-background: #F6F8FA;
     --color-main-foreground: hsl(120, 100%, 100%);
+
+    --color-main-danger: #F65E5E;
+    --color-main-danger-transparent: #F65E5E60;
+    --color-main-accept: #70e000; 
+    --color-main-accept-transparent: #70e00060;
+
     --color-platinum-gray: #E5E5E5;
     --color-grim-gray: #D0D7DE;
     --color-steel-gray: #6D6D6D;

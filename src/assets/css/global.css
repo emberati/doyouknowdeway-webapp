@@ -61,3 +61,13 @@ h3 {
     border: 1px solid transparent;
     background-color: transparent;
 }
+
+.content section {
+    margin-top: 50px;
+}
+  
+.content section > h1,
+.content section > h2,
+.content section > h3 {
+    margin-bottom: 20px;
+}

@@ -109,4 +109,25 @@ export default {
         color: var(--color-main-danger);
         background-color: transparent;
     }
+
+        /* BUTTON DANGER STYLE */
+
+    .button.accept {
+        color: var(--color-main-accept);
+        border: 1px solid var(--color-main-accept);
+    }
+
+    .button.accept:hover {
+        color: var(--color-main-foreground);
+        background-color: var(--color-main-accept);
+    }
+
+    .button.accept:focus {
+        box-shadow: 0 0 0 5px var(--color-main-accept-transparent);
+    }
+
+    .button.accept:active {
+        color: var(--color-main-accept);
+        background-color: transparent;
+    }
 </style>

@@ -4,7 +4,6 @@ import {useGlobalStore} from '@/store/global'
 import {storeToRefs} from 'pinia'
 
 /* FOR DEV ONLY START */
-import ButtonChecker from '@/components/ButtonChecker'
 /* FOR DEV ONLY END */
 
 import ItemCard from '@/components/ItemCard'
@@ -13,7 +12,6 @@ export default {
     name: 'Catalog',
     components: {
         ItemCard,
-        ButtonChecker
     },
     props: {
 
@@ -118,15 +116,5 @@ export default {
 
     .button-checker {
       margin-bottom: -20px;
-    }
-
-    section {
-      margin-top: 50px;
-    }
-
-    section > h1,
-    section > h2,
-    section > h3 {
-      margin-bottom: 20px;
     }
 </style>
