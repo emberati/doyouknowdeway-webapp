@@ -12,8 +12,9 @@ function itemMatch(item, query) {
   query.forEach(str => {
     str = str.toLowerCase()
     nameMatch ||= item.name.toLowerCase().includes(str)
-    sizeMatch ||= str == size
+    sizeMatch ||= str === size.toLowerCase
     descriptionMatch ||= item.description.toLowerCase().includes(str)
+    console.log(str, size)
   })
 
   return {
@@ -131,6 +132,7 @@ export const useCatalogStore = defineStore('catalog', {
   getters: {
     getItems(store) {
       const global = useGlobalStore()
+      if (global.query.length < 3) return store.items
       let findedItems = searchItems(store.items, global.query)
       let filteredItems = filterItems(findedItems, this.selectedCategories)
       return filteredItems

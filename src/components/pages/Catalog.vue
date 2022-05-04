@@ -80,8 +80,14 @@ export default {
       </section>
       <section id="items-catalog">
         <h1>Каталог товаров</h1>
-        <div class="item-list" :class="{'compact': getItems.length < 3}">
-          <item-card :key="item.id" :item="item" v-for="item in getItems"/>
+        <div class="item-list-grid">
+          <transition-group name="item-list">
+            <item-card 
+              v-for="item in getItems"
+              :item="item"
+              :key="item.id"
+            />
+          </transition-group>
         </div>
       </section>
     </div>
@@ -89,14 +95,25 @@ export default {
 </template>
 
 <style scoped>
-    .item-list {
+    .item-list-grid {
         display: grid;
-        grid-template-columns: auto auto auto;
+        grid-template-columns: repeat(3, 1fr);
         grid-gap: 20px;
     }
 
-    .item-list.compact {
-      display: flex;
+    .item-list-enter-active,
+    .item-list-leave-active {
+      transition: all .3s ease;
+    }
+
+    .item-list-enter,
+    .item-list-leave-to {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+
+    .item-list-move {
+      transition: 0s none;
     }
 
     .button-checker {
