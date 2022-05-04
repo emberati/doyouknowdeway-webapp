@@ -6,7 +6,8 @@ export default {
         NavButton
     },
     props: {
-        loading: Boolean
+        loading: Boolean,
+        rentsNotifications: Number
     },
     data: () => ({
         searchText: '',
@@ -65,6 +66,7 @@ export default {
           <nav-button
             :icon="'icon-rents'"
             :link="'/rents'"
+            :notifications="rentsNotifications"
             @hover="onNavButtonHover"
           >Мои аренды</nav-button>
           <nav-button

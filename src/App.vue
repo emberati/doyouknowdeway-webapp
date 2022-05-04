@@ -25,11 +25,13 @@ export default {
 
     const {
       isLoading,
+      getRentsNotifications
     } = storeToRefs(store)
 
     return {
       store,
       isLoading,
+      getRentsNotifications
     }
   },
   mounted() {
@@ -40,7 +42,7 @@ export default {
 
 <template>
   <header>
-    <header-nav v-model="store.query" :loading="isLoading"/>
+    <header-nav v-model="store.query" :loading="isLoading" :rentsNotifications="getRentsNotifications"/>
   </header>
 
   <router-view v-slot="{ Component }">

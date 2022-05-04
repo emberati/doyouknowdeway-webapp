@@ -25,7 +25,7 @@ export const useRentsStore = defineStore({
       else return 'Корзина не собрана!'
     },
     getCartItemsCount(store) {
-        return store.activeRent.items.length
+      return store.activeRent.items.length
     }
   },
   actions: {

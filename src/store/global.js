@@ -1,9 +1,11 @@
 import {defineStore} from 'pinia'
+import { useRentsStore } from './rents'
 
 export const useGlobalStore = defineStore({
   id: 'global',
   state: () => ({
     loading: false,
+    rentsNotifications: 0,
     query: '',
     testFetchData: [
       {
@@ -148,6 +150,10 @@ export const useGlobalStore = defineStore({
     isLoading(store) {
         return store.loading
     },
+    getRentsNotifications() {
+      const rents = useRentsStore()
+      return rents.getCartItemsCount
+    }
   },
   actions: {
     setLoading(value) {

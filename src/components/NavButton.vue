@@ -10,7 +10,8 @@ export default {
         link: {
             type: String,
             required: true
-        }
+        },
+        notifications: Number
     },
     data: () => ({
         button: Object
@@ -30,20 +31,21 @@ export default {
 
 <template>
 <!-- <div class="nav-button-wrapper"> -->
-    <button
-      ref="button"
-      type="button"
-      class="nav-button button"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
-      @click="$router.push(link)"
-    >
-      <i :class="icon"></i>
-      <span>
-        <slot>Icon Button</slot>
-      </span>
-    </button>
-    <div class="underline"></div>
+  <button
+    ref="button"
+    type="button"
+    class="nav-button button"
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave"
+    @click="$router.push(link)">
+    <i :class="icon"></i>
+    <span v-if="notifications" class="notifications">{{notifications}}</span>
+    <span>
+      <slot>Icon Button</slot>
+    </span>
+
+  </button>
+  <div class="underline"></div>
 <!-- </div> -->
 </template>
 
@@ -76,5 +78,16 @@ export default {
         color: var(--color-main-accent);
         margin-top: auto;
         margin-bottom: auto;
+    }
+
+    .notifications {
+        padding: 2px;
+        margin-top: -1px;
+        margin-left: -20px;
+        min-width: 15px;
+        min-height: 15px;
+        border-radius: 15px;
+        color: var(--color-main-foreground);
+        background-color: var(--color-main-accent);
     }
 </style>
