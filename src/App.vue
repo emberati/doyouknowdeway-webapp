@@ -91,12 +91,5 @@ export default {
   .for-test {
     margin-top: 20px;
   }
-
-  .test {
-    width: 300px;
-    margin-top: 20px;
-    text-align: center;
-    font-weight: 500;
-  }
   /* @import url('./assets/css/reset.css'); */
 </style>

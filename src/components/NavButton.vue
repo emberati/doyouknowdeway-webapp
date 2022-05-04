@@ -87,6 +87,7 @@ export default {
         min-width: 15px;
         min-height: 15px;
         border-radius: 15px;
+        border: 2px solid var(--color-main-foreground);
         color: var(--color-main-foreground);
         background-color: var(--color-main-accent);
     }
