@@ -7,12 +7,12 @@ import {storeToRefs} from 'pinia'
 /* FOR DEV ONLY START */
 /* FOR DEV ONLY END */
 
-import ItemCard from '@/components/ItemCard'
+import ItemGrid from '@/components/ItemGrid'
 
 export default {
     name: 'Catalog',
     components: {
-        ItemCard,
+      ItemGrid,
     },
     props: {
 
@@ -90,44 +90,14 @@ export default {
       </section>
       <section id="items-catalog">
         <h1>Каталог товаров</h1>
-        <div class="item-list-grid">
-          <transition-group name="item-list">
-            <item-card
-              v-for="item in getItems"
-              :item="item"
-              :key="item.id"
-              @itemAdd="addToCart"
-            />
-          </transition-group>
-        </div>
+        <item-grid :items="getItems" @itemAdd="addToCart"/>
       </section>
     </div>
   </div>
 </template>
 
 <style scoped>
-    .item-list-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 20px;
-    }
-
-    .item-list-enter-active,
-    .item-list-leave-active {
-      transition: all .3s ease;
-    }
-
-    .item-list-enter-from,
-    .item-list-leave-to {
-      opacity: 0;
-      transform: scale(0.98);
-    }
-
-    .item-list-move {
-      transition: 0s none;
-    }
-
-    .button-checker {
-      margin-bottom: -20px;
-    }
+  .button-checker {
+    margin-bottom: -20px;
+  }
 </style>

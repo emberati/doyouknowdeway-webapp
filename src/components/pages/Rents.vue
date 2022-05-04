@@ -1,3 +1,42 @@
+<script>
+import {storeToRefs} from 'pinia'
+import {useRentsStore} from '@/store/rents'
+
+import ContentCard from '@/components/ContentCard'
+import ItemGrid from '@/components/ItemGrid'
+
+export default {
+  components: {
+    ContentCard,
+    ItemGrid
+  },
+  setup() {
+    const rents = useRentsStore()
+
+    const {
+      getCartStatus,
+      getTotalCost,
+      getCartItems
+    } = storeToRefs(rents)
+
+    const {
+      clearCart,
+      removeFromCart,
+      archiveRent
+    } = rents
+
+    return {
+      getCartStatus,
+      getTotalCost,
+      getCartItems,
+      clearCart,
+      removeFromCart,
+      archiveRent
+    }
+  }
+}
+</script>
+
 <template>
   <div class="rents container">
     <div class="content">
@@ -37,55 +76,14 @@
         </div>
       </content-card>
       <section>
-        <item-card
-          v-for="item in getCartItems"
-          :item="item"
-          :key="item.id"
+        <item-grid
+          :items="getCartItems"
           @itemAdd="removeFromCart"
         />
       </section>
     </div>
   </div>
 </template>
-
-<script>
-import {storeToRefs} from 'pinia'
-import {useRentsStore} from '@/store/rents'
-
-import ContentCard from '@/components/ContentCard'
-import ItemCard from '@/components/ItemCard'
-
-export default {
-  components: {
-    ContentCard,
-    ItemCard
-  },
-  setup() {
-    const rents = useRentsStore()
-
-    const {
-      getCartStatus,
-      getTotalCost,
-      getCartItems
-    } = storeToRefs(rents)
-
-    const {
-      clearCart,
-      removeFromCart,
-      archiveRent
-    } = rents
-
-    return {
-      getCartStatus,
-      getTotalCost,
-      getCartItems,
-      clearCart,
-      removeFromCart,
-      archiveRent
-    }
-  }
-}
-</script>
 
 <style scoped>
   section {
