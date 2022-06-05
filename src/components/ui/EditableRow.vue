@@ -13,6 +13,15 @@ export default {
     value: {
       type: String,
       required: false
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    variant: {
+      type: String,
+      required: false,
     }
   },
   data: () => ({
@@ -22,16 +31,22 @@ export default {
 </script>
 
 <template>
-  <div class="info-row" :class="{'focus': focused}">
+  <div class="info-row"
+    :class="
+      focused? 'focus' : '',
+      variant? variant : 'regular',
+      disabled? 'disabled': ''
+    ">
     <label :for="id" class="row-title">
       <slot></slot>
     </label>
     <input
       :id="id"
       class="invisible-input"
+      :class="variant"
       :type="type"
       :value="value"
-      :disabled="value"
+      :disabled="disabled"
       @focus="focused = true"
       @blur="focused = false">
   </div>
@@ -47,14 +62,9 @@ export default {
       height: 30px;
       margin-bottom: 5px;
       padding-bottom: 5px;
-      
-      border-bottom: 2px solid var(--color-main-accent);
-      transition: box-shadow .2s ease;
   }
 
-  .info-row.focus {
-    box-shadow: 0 5px 0 0 var(--color-main-layer);
-  }
+  
 
   .row-title {
     margin-top: auto;
@@ -70,5 +80,35 @@ export default {
     width: auto;
     text-align: right;
     background-color: transparent;
+  }
+
+  /* VARIANT REGULAR */
+.info-row.regular {
+  border-bottom: 2px solid var(--color-main-accent);
+  transition: box-shadow .2s ease;
+}
+
+.info-row.regular.focus {
+  box-shadow: 0 5px 0 0 var(--color-main-layer);
+}
+
+  /* VARIANT LATENT */
+  .info-row.latent {
+    border-bottom: 2px solid var(--color-main-accent);
+    transition: box-shadow .2s ease;
+  }
+
+  .info-row.latent.focus {
+    box-shadow: 0 5px 0 0 var(--color-main-layer);
+  }
+  .info-row.latent.disabled {
+    border-bottom: 2px solid transparent;
+    transition: box-shadow .2s ease;
+    box-shadow: 0 5px 0 0 transparent;
+  }
+
+  .latent input,
+  .latent label {
+    color: var(--color-main-foreground)!important;
   }
 </style>

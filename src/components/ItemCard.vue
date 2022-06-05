@@ -53,7 +53,16 @@ export default {
           <ul class="characteristics">
             <li>
               <span class="characteristic-name">Размер: </span>
-              <span>{{ item.size }}</span>
+              <!-- <span>{{ item.size }}</span> -->
+              <editable-row 
+                @mousedown.stop
+                @mouseup.stop
+                :id="'item-size'"
+                :disabled="true"
+                :value="item.size"
+                :variant="'latent'">
+                Размер:
+              </editable-row>
             </li>
             <li>
               <span class="characteristic-name">Возраст: </span>
