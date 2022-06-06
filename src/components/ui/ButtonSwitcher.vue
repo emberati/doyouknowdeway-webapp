@@ -1,6 +1,7 @@
 <script>
 export default {
     name: 'button-switcher',
+    emits: ['switch'],
     props: {
         options: {
             type: Array[String],
@@ -21,7 +22,7 @@ export default {
             if (this.lastElement != this.currentElement) {
                 this.lastElement?.classList.remove('selected')
             }
-            this.$emit('update:modelValue', this.option)
+            this.$emit('switch', this.option)
         },
         onClick(e) {
             this.select(e.target)
@@ -52,6 +53,7 @@ export default {
     <div class="button-switcher">
         <div class="switcher-outer">
             <button ref="btn"
+                type="button"
                 class="button switcher-inner"
                 v-for="option in options"
                 :disabled="false"
