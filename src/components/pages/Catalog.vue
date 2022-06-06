@@ -15,7 +15,11 @@ export default {
       ItemCardUser,
       ItemCardAdmin
     },
-    async setup() {
+    async mounted() {
+      const catalog = useCatalogStore()
+      await catalog.fetchItems()
+    },
+    setup() {
       console.log('setup')
       const catalog = useCatalogStore()
       const global = useGlobalStore()
@@ -27,11 +31,6 @@ export default {
       } = storeToRefs(catalog)
 
       const {
-        getTotalCost,
-        getCartItemsCount
-      } = storeToRefs(rents)
-
-      const {
         fetchItems,
         setCatalogItems,
         checkCategoryById,
@@ -41,8 +40,6 @@ export default {
       const {
         addToCart
       } = rents
-
-      await fetchItems()
 
       return {
         global,

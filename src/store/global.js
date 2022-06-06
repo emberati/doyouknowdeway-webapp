@@ -7,6 +7,7 @@ export const useGlobalStore = defineStore({
     loading: false,
     rentsNotifications: 0,
     adminMode: false,
+    authDialogVisible: false,
     query: '',
     testFetchData: [
       {
@@ -154,11 +155,20 @@ export const useGlobalStore = defineStore({
     getRentsNotifications() {
       const rents = useRentsStore()
       return rents.getCartItemsCount
+    },
+    isAuthDialogVisible(store) {
+      return store.authDialogVisible
     }
   },
   actions: {
     setLoading(value) {
       this.loading = value
+    },
+    showAuthDialog() {
+      this.authDialogVisible = true
+    },
+    hideAuthDialog() {
+      this.authDialogVisible = false
     }
   },
 })

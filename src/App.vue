@@ -1,67 +1,26 @@
 <script>
-import ItemCard from "@/components/ItemCard"
-import HeaderNav from "@/components/HeaderNav"
-import FooterInfo from "@/components/FooterInfo"
-
-import { useGlobalStore } from '@/store/global'
-import { storeToRefs } from 'pinia'
+import MainLayout from './components/layouts/MainLayout'
 
 export default {
   name: 'App',
   components: {
-    ItemCard, HeaderNav, FooterInfo
+    MainLayout
   },
-  methods: {
-
-  },
-  watch: {
-  },
-  data: () => ({
-    syncedText: "",
-    primitiveText: "",
-  }),
-  setup() {
-    const store = useGlobalStore()
-
-    const {
-      isLoading,
-      getRentsNotifications
-    } = storeToRefs(store)
-
-    return {
-      store,
-      isLoading,
-      getRentsNotifications
+  computed: {
+    layout() {
+      const layoutName = this.$route.meta.layout || 'main-layout'
+      console.log('layout: ', layoutName)
+      return layoutName
     }
   },
-  mounted() {
-
-  }
+  
 }
 </script>
 
 <template>
-  <header>
-    <header-nav v-model="store.query" :loading="isLoading" :rentsNotifications="getRentsNotifications"/>
-  </header>
-
-  <router-view v-slot="{ Component }">
-    <!-- Забагованая дичь, но пусть пока будет -->
-    <suspense timeout="0">
-      <template #default>
-        <component class="page-body" :is="Component"/>
-      </template>
-      <template #fallback>
-        <div>
-          <h1 style="text-align: center; margin-top: 50px;">Загружаем...</h1>
-          <linear-loader/>
-        </div>
-      </template>
-    </suspense>
-  </router-view>
-  <footer>
-    <footer-info/>
-  </footer>
+  <component :is="layout">
+    <router-view/>
+  </component>
 </template>
 
 <style>

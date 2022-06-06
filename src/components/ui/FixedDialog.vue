@@ -1,13 +1,18 @@
 <script>
 export default {
   name: 'fixed-dialog',
+  methods: {
+    hideDialog() {
+      this.$emit('hide')
+    }
+  }
 }
 </script>
 
 <template>
-  <div class="fixed-dialog">
-    <div class="dialog-content">
-      <slot></slot>
+  <div class="fixed-dialog" @click="hideDialog">
+    <div class="dialog-content" @click.stop>
+      <slot @hide="hideDialog"></slot>
     </div>
   </div>
 </template>

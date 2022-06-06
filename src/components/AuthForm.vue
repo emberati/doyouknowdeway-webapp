@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'auth-form',
+  emits: ['hide'],
   data: () => ({
     email: '',
     password: '',
@@ -23,6 +24,10 @@ export default {
     onSubmit() {
       console.log('This form can not be submitted!')
     },
+    hideDialog() {
+      this.$emit('hide')
+      console.log('hide')
+    },
     onSwitch(option) {
       this.currentOption = option
       if (this.currentOption != this.lastOption) {
@@ -43,60 +48,52 @@ export default {
     method="POST"
     id="auth-form"
     class="auth-form">
-    <div class="switchable">
-      <!-- <transition-group name="form-inputs"> -->
-        <div v-if="currentOption == 'Войти'" class="form-inputs">
-        <!-- <div class="form-inputs"> -->
-          <form-input
-            :id="'email-input'"
-            :label="'Электронная почта'"
-            v-model="loginData.email"/>
-          <form-input
-            :id="'password-input'"
-            :label="'Пароль'"
-            :type="'password'"
-            v-model="loginData.password"/>
-        </div>
-        <div v-else class="form-inputs">
-        <!-- <div class="form-inputs"> -->
-          <form-input
-            :id="'firstname-input'"
-            :label="'Имя'"
-            v-model="registerData.firstname"/>
-          <form-input
-            :id="'lastname-input'"
-            :label="'Фамилия'"
-            v-model="registerData.lastname"/>
-          <form-input
-            :id="'login-input'"
-            :label="'Логин'"
-            v-model="registerData.login"/>
-          <form-input
-            :id="'email-input'"
-            :label="'Электронная почта'"
-            v-model="registerData.email"/>
-          <form-input
-            :id="'password-input'"
-            :label="'Пароль'"
-            :type="'password'"
-            v-model="registerData.password"/>
-          <form-input
-            :id="'repeat-password-input'"
-            :label="'Повторите пароль'"
-            :type="'password'"
-            v-model="registerData.repeatPassword"/>
-        </div>
-      <!-- </transition-group> -->
+      <div v-if="currentOption == 'Войти'" class="form-inputs">
+        <form-input
+          :id="'email-input'"
+          :label="'Электронная почта'"
+          v-model="loginData.email"/>
+        <form-input
+          :id="'password-input'"
+          :label="'Пароль'"
+          :type="'password'"
+          v-model="loginData.password"/>
+      </div>
+      <div v-else class="form-inputs">
+        <form-input
+          :id="'firstname-input'"
+          :label="'Имя'"
+          v-model="registerData.firstname"/>
+        <form-input
+          :id="'lastname-input'"
+          :label="'Фамилия'"
+          v-model="registerData.lastname"/>
+        <form-input
+          :id="'login-input'"
+          :label="'Логин'"
+          v-model="registerData.login"/>
+        <form-input
+          :id="'email-input'"
+          :label="'Электронная почта'"
+          v-model="registerData.email"/>
+        <form-input
+          :id="'password-input'"
+          :label="'Пароль'"
+          :type="'password'"
+          v-model="registerData.password"/>
+        <form-input
+          :id="'repeat-password-input'"
+          :label="'Повторите пароль'"
+          :type="'password'"
+          v-model="registerData.repeatPassword"/>
     </div>
-    
-
     <button-switcher
       :options="['Войти', 'Зарегистрироваться']"
       v-model="currentOption"
       @switch="onSwitch"
       />
     <div class="skip-wrapper">
-      <span class="skip">Продолжить в демо-режиме</span>
+      <span class="skip" @click="hideDialog">Продолжить в демо-режиме</span>
     </div>
   </form>
 </template>

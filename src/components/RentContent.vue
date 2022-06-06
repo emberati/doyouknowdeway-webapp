@@ -4,7 +4,7 @@ import {useRentsStore} from '@/store/rents'
 import ContentCard from '@/components/ContentCard'
 import ItemGrid from '@/components/ItemGrid'
 import ItemCardUser from '@/components/ItemCardUser'
-import AuthForm from '@/components/AuthForm'
+
 
 export default {
   name: 'rent-content',
@@ -12,12 +12,10 @@ export default {
     ContentCard,
     ItemGrid,
     ItemCardUser,
-    AuthForm
   },
   data: () => ({
     showCartItems: false,
-    email: '',
-    password: ''
+    dialogVisible: true
   }),
   methods: {
     onExpandItems() {
@@ -100,9 +98,6 @@ export default {
           @itemAdd="removeFromCart"/>
       </template>
     </item-grid>
-    <fixed-dialog>
-      <auth-form/>
-    </fixed-dialog>
   </section>
 </template>
 

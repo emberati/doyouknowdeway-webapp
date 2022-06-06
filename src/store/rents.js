@@ -12,6 +12,9 @@ export const useRentsStore = defineStore({
     }
   }),
   getters: {
+    isCartNotEmpty(store) {
+      return Boolean(store.activeRent.items.length)
+    },
     getCartItems(store) {
       return store.activeRent.items
     },
@@ -50,6 +53,13 @@ export const useRentsStore = defineStore({
     archiveRent() {
       this.archiveRents.push(this.activeRent)
       this.clearCart()
+    },
+    saveActiveRent() {
+      localStorage.setItem(
+        'rents.activeRent',
+        JSON.stringify(this.activeRent)
+      )
+      
     }
   }
 })
