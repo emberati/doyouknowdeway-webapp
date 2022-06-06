@@ -47,7 +47,7 @@ export default {
       :loading="isLoading"
       :rentsNotifications="getRentsNotifications"/>
   </header>
-  <div v-if="!isLoading" class="page-body">
+  <div v-if="!isLoading" class="page-body container">
     <fixed-dialog v-if="isAuthDialogVisible" @hide="hideAuthDialog">
       <auth-form @hide="hideAuthDialog"/>
     </fixed-dialog>
@@ -63,5 +63,4 @@ export default {
 </template>
 
 <style>
-  
 </style>
