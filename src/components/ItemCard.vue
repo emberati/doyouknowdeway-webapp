@@ -22,11 +22,17 @@ export default {
     },
     onMouseUp() {
       this.itemCardElement.classList.remove('clicked')
-      this.descriptionElement.classList.toggle('expanded')
+      this.toggleCardContent()
       console.log('mouseup')
     },
-    onButtonAddClicked(e) {
-      this.$emit('itemAdd', this.item)
+    toggleCardContent() {
+      this.descriptionElement.classList.toggle('expanded')
+    },
+    expandCardContent() {
+      this.descriptionElement.classList.add('expanded')
+    },
+    collapseCardContent() {
+      this.descriptionElement.classList.remove('expanded')
     }
   },
   mounted() {
@@ -40,7 +46,7 @@ export default {
 <template>
   <div ref="itemCard" class="item-card rounded">
     <div class="image-wrapper rounded">
-      <img :src="item.imageUrl" alt="">
+      <slot name="image-block"></slot>
     </div>
     <div
       ref="description"
@@ -48,52 +54,11 @@ export default {
       @mousedown="onMouseDown"
       @mouseup="onMouseUp">
       <div class="description-inner float">
-        <h2>{{ item.name }}</h2>
-        <p>
-          <ul class="characteristics">
-            <li>
-              <span class="characteristic-name">Размер: </span>
-              <!-- <span>{{ item.size }}</span> -->
-              <editable-row 
-                @mousedown.stop
-                @mouseup.stop
-                :id="'item-size'"
-                :disabled="true"
-                :value="item.size"
-                :variant="'latent'">
-                Размер:
-              </editable-row>
-            </li>
-            <li>
-              <span class="characteristic-name">Возраст: </span>
-              <span>{{item.age_id}}</span>
-            </li>
-            <li>
-              <span class="characteristic-name">Пол: </span>
-              <span>{{ item.sex_id }}</span>
-            </li>
-            <li>
-              <span class="characteristic-name">Сезон: </span>
-              <span>{{ item.season_id }}</span>
-            </li>
-          </ul>
-        </p>
-        <p>{{ item.description }}</p>
+        <slot name="description-block"></slot>
       </div>
       <div class="description-inner static">
         <div class="action-bar">
-          <span class="price-wrapper">
-            <p class="price">
-              {{ item.cost_per_hour }}₽/час
-            </p>
-          </span>
-          <round-button
-            :variant="'white'"
-            @mousedown.stop
-            @mouseup.stop
-            @click="onButtonAddClicked">
-              Добавить
-            </round-button>
+          <slot name="action-block"></slot>
         </div>
       </div>
     </div>
@@ -109,18 +74,7 @@ export default {
 .image-wrapper {
   overflow: hidden;
   height: 100%;
-}
-
-img {
-  -webkit-user-drag: none;
-  width: -webkit-fill-available;
-}
-h2 {
-  margin-bottom: 10px;
-}
-
-.characteristic-name {
-  font-weight: 600;
+  width: 100%;
 }
 
 .item-card {
@@ -160,10 +114,6 @@ h2 {
 .item-card:focus {
   border: 1px solid var(--color-main-accent);
   box-shadow: 0 0 0 5px var(--color-main-layer);
-}
-
-.item-card * {
-  color: white;
 }
 
 .description {
@@ -230,24 +180,24 @@ h2 {
   justify-content: space-between;
 }
 
-span.price-wrapper {
-  display: flex;
-}
-
-p.price {
-  margin-top: auto;
-  margin-bottom: auto;
-  font-size: 24px;
-  font-weight: 900;
-}
-
-#button-add.button {
-  display: block;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
 .item-card-inner {
   height: 200px;
 }
+</style>
+
+<style>
+  h2.item-name {
+    margin-bottom: 10px;
+  }
+  .item-card * {
+    color: var(--color-main-foreground);
+  }
+  .characteristic-row {
+    margin-bottom: 5px;
+  }
+
+  .image-wrapper img {
+    -webkit-user-drag: none;
+    width: 100%;
+  }
 </style>

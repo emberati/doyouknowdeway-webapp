@@ -11,7 +11,6 @@ export default {
       required: false
     },
     value: {
-      type: String,
       required: false
     },
     disabled: {
@@ -31,7 +30,7 @@ export default {
 </script>
 
 <template>
-  <div class="info-row"
+  <div class="editable-row"
     :class="
       focused? 'focus' : '',
       variant? variant : 'regular',
@@ -53,9 +52,7 @@ export default {
 </template>
 
 <style scoped>
-  .info-row {
-      /* padding-top: 5px;
-      padding-bottom: 5px; */
+  .editable-row {
       display: grid;
       grid-template-columns: auto 1fr;
       gap: 0;
@@ -83,25 +80,25 @@ export default {
   }
 
   /* VARIANT REGULAR */
-.info-row.regular {
+.editable-row.regular {
   border-bottom: 2px solid var(--color-main-accent);
   transition: box-shadow .2s ease;
 }
 
-.info-row.regular.focus {
+.editable-row.regular.focus {
   box-shadow: 0 5px 0 0 var(--color-main-layer);
 }
 
   /* VARIANT LATENT */
-  .info-row.latent {
+  .editable-row.latent {
     border-bottom: 2px solid var(--color-main-accent);
     transition: box-shadow .2s ease;
   }
 
-  .info-row.latent.focus {
+  .editable-row.latent.focus {
     box-shadow: 0 5px 0 0 var(--color-main-layer);
   }
-  .info-row.latent.disabled {
+  .editable-row.latent.disabled {
     border-bottom: 2px solid transparent;
     transition: box-shadow .2s ease;
     box-shadow: 0 5px 0 0 transparent;

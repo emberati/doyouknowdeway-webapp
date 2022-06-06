@@ -4,18 +4,16 @@ import {useGlobalStore} from '@/store/global'
 import {useRentsStore} from '@/store/rents'
 import {storeToRefs} from 'pinia'
 
-/* FOR DEV ONLY START */
-/* FOR DEV ONLY END */
-
 import ItemGrid from '@/components/ItemGrid'
+import ItemCardUser from '@/components/ItemCardUser'
+import ItemCardAdmin from '@/components/ItemCardAdmin'
 
 export default {
     name: 'Catalog',
     components: {
       ItemGrid,
-    },
-    props: {
-
+      ItemCardUser,
+      ItemCardAdmin
     },
     async setup() {
       console.log('setup')
@@ -23,16 +21,9 @@ export default {
       const global = useGlobalStore()
       const rents = useRentsStore()
 
-      // const {
-      //   isLoading
-      // } = storeToRefs(global)
-
       const {
         getItems,
-        sortedItems,
         getAllCategories,
-        filteredItems,
-        searchedItems
       } = storeToRefs(catalog)
 
       const {
@@ -54,26 +45,15 @@ export default {
       await fetchItems()
 
       return {
+        global,
         getItems,
         addToCart,
         fetchItems,
-        sortedItems,
         getAllCategories,
         setCategoryFilters,
         setCatalogItems,
-        filteredItems,
-        searchedItems,
         checkCategoryById
       }
-    },
-    async mounted() {
-      // console.log('loading...')
-      // await this.fetchItems()
-      // console.log('loading done.')
-      console.log(this.getItems)
-    },
-    unmounted() {
-      console.log('unmounted')
     }
 }
 </script>
@@ -90,7 +70,22 @@ export default {
       </section>
       <section id="items-catalog">
         <h1>Каталог товаров</h1>
-        <item-grid :items="getItems" @itemAdd="addToCart"/>
+        <item-grid @itemAdd="addToCart">
+          <template #item-list v-if="global.adminMode">
+            <item-card-admin
+              v-for="item in getItems"
+              :key="'item-card-' + item.id"
+              :item="item"
+              @itemAdd="addToCart"/>
+          </template>
+          <template #item-list v-else>
+            <item-card-user
+              v-for="item in getItems"
+              :key="'item-card-' + item.id"
+              :item="item"
+              @itemAdd="addToCart"/>
+          </template>
+        </item-grid>
       </section>
     </div>
   </div>

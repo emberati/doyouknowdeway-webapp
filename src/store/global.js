@@ -6,6 +6,7 @@ export const useGlobalStore = defineStore({
   state: () => ({
     loading: false,
     rentsNotifications: 0,
+    adminMode: false,
     query: '',
     testFetchData: [
       {

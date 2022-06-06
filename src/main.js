@@ -13,7 +13,6 @@ import './assets/css/fonts.css'
 import './assets/css/icons.css'
 import './assets/css/global.css'
 
-
 const app = createApp(App)
 const pinia = createPinia()
 

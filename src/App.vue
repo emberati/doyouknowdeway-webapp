@@ -65,6 +65,8 @@ export default {
 </template>
 
 <style>
+  /* @import url('./assets/css/global.css'); */
+
   #app {
     height: 100%;
     display: grid;
@@ -91,5 +93,4 @@ export default {
   .for-test {
     margin-top: 20px;
   }
-  /* @import url('./assets/css/reset.css'); */
 </style>

@@ -110,7 +110,7 @@ export default {
         background-color: transparent;
     }
 
-        /* BUTTON DANGER STYLE */
+    /* BUTTON DANGER STYLE */
 
     .button.accept {
         color: var(--color-main-accept);

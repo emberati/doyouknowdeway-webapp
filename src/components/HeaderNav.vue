@@ -116,6 +116,7 @@ export default {
     .search-wrapper {
         margin-top: auto;
         margin-bottom: auto;
+        position: relative;
     }
 
     .selection {

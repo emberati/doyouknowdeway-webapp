@@ -141,22 +141,6 @@ export const useCatalogStore = defineStore('catalog', {
     getAllCategories(store) {
       return store.allCategories
     },
-    sortedItems(store) {
-      return store.items
-    },
-    // filteredItems(store) {
-    //   if (store.selectedCategories.length == 0) {
-    //     console.log('Selected Categories is empty!: ', store.selectedCategories)
-    //     return store.items
-    //   }
-
-    //   return filterItems(store.items, store.selectedCategories)
-    // },
-    // searchedItems(store) {
-    //   const global = useGlobalStore()
-    //   let result = searchItems(store.items, global.query)
-    //   return result
-    // }
   },
   actions: {
     checkCategoryById(id) {
