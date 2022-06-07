@@ -1,5 +1,6 @@
 <script>
 import { useGlobalStore } from '@/store/global'
+import { useAuthStore } from '@/store/auth'
 import { storeToRefs } from 'pinia'
 
 import ItemCard from "@/components/ItemCard"
@@ -17,7 +18,9 @@ export default {
   },
   setup() {
     const store = useGlobalStore()
-
+    // const auth = useAuthStore()
+    // auth.login('evkakiy@gmail.com', 'evkakiy')
+    // console.log("creditionals: ", auth.creditionals)
     const {
       isAuthDialogVisible,
       isLoading,

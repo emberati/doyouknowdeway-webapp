@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 import { useRentsStore } from './rents'
 
 export const useGlobalStore = defineStore({

@@ -77,14 +77,21 @@ h3 {
   .container {
     width: auto;
   }
+
+  .container.page-body {  
+    width: 860px;
+  }
   .content {
-    width: min-content;
+    /* width: 860px; */
   }
   .item-list-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media screen and (max-width: 860px) {
+  .container.page-body {  
+    width: auto;
+  }
   .item-list-grid {
     grid-template-columns: 1fr;
   }
