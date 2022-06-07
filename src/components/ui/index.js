@@ -7,6 +7,7 @@ import EditableRow from '@/components/ui/EditableRow'
 import FixedDialog from '@/components/ui/FixedDialog'
 import FlatInput from '@/components/ui/FlatInput'
 import FormInput from '@/components/ui/FormInput'
+import FlatTextArea from '@/components/ui/FlatTextArea'
 
 export default [
     RoundButton,
@@ -17,5 +18,6 @@ export default [
     EditableRow,
     FixedDialog,
     FlatInput,
-    FormInput
+    FormInput,
+    FlatTextArea
 ]

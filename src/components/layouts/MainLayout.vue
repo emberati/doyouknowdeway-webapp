@@ -18,9 +18,9 @@ export default {
   },
   setup() {
     const store = useGlobalStore()
-    // const auth = useAuthStore()
-    // auth.login('evkakiy@gmail.com', 'evkakiy')
-    // console.log("creditionals: ", auth.creditionals)
+    const auth = useAuthStore()
+    auth.login('evkakiy@gmail.com', 'evkakiy')
+    console.log("creditionals: ", auth.creditionals)
     const {
       isAuthDialogVisible,
       isLoading,

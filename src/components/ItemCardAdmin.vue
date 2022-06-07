@@ -133,9 +133,7 @@ export default {
         name="item-description"
         id="item-description"
         class="description-input"
-        rows="10">
-         {{ item.description }} 
-      </textarea>
+        rows="10">{{ item.description }}</textarea>
       <p v-else>{{ item.description }}</p>
     </template>
     <template #action-block>
@@ -224,12 +222,21 @@ p.price {
 .description-input {
   width: 100%;
   margin-bottom: 50px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  padding: 5px;
 
   border: none;
   outline: none;
 
+  border: 2px solid var(--color-main-accent);
   font-family: 'Montserrat';
   background-color: transparent;
+  transition: .3s ease;
+}
+
+.description-input:focus {
+  box-shadow: 0 0 0 5px var(--color-main-layer)
 }
 </style>
 

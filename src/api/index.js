@@ -23,3 +23,8 @@ console.log(defaultConfig)
 
 export const DefaultAPIInstance = axios.create(defaultConfig)
 export const LoginAPIInstance = axios.create(loginConfig)
+
+// curl -i -X OPTIONS -H "Origin: *" ^
+//     -H "Access-Control-Request-Method: POST" ^
+//     -H "Access-Control-Request-Headers: Content-Type, Authorization" ^
+//     "https://sport-equipment-rent.herokuapp.com"

@@ -90,7 +90,7 @@ h3 {
 }
 @media screen and (max-width: 860px) {
   .container.page-body {  
-    width: auto;
+    width: 440px;;
   }
   .item-list-grid {
     grid-template-columns: 1fr;

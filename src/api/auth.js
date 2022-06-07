@@ -9,5 +9,9 @@ export const AuthAPI = {
   logout() {
     const url = '/logout'
     return DefaultAPIInstance.post(url)
+  },
+  register(data) {
+    const url = '/register'
+    return LoginAPIInstance.post(url, data)
   }
 }

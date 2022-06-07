@@ -57,7 +57,7 @@ export default {
       grid-template-columns: auto 1fr;
       gap: 0;
       height: 30px;
-      margin-bottom: 5px;
+      padding-top: 5px;
       padding-bottom: 5px;
   }
 

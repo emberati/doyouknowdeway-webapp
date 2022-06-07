@@ -15,11 +15,23 @@ export default {
   },
   data: () => ({
     showCartItems: false,
-    dialogVisible: true
+    dialogVisible: true,
+    rentStartInputDisabled: true,
+    rentEndInputDisabled: true
   }),
   methods: {
     onExpandItems() {
       this.showCartItems = !this.showCartItems
+    },
+    editStartTime() {
+      this.rentStartInputDisabled = !this.rentStartInputDisabled
+    },
+    editEndTime() {
+      this.rentEndInputDisabled = !this.rentEndInputDisabled
+    },
+    resetEditing() {
+      this.rentStartInputDisabled = true
+      this.rentEndInputDisabled = true
     }
   },
   computed: {
@@ -61,24 +73,47 @@ export default {
       <section>
         <h1>Активная аренда</h1>
         <div class="info-block">
-          <editable-row 
-            :id="'rent-status'"
-            :value="getCartStatus">
-            Статус аренды:
-          </editable-row>
-          <editable-row 
-            :id="'rent-start'" :type="'date'">
-            Начало аренды:
-          </editable-row>
-          <editable-row 
-            :id="'rent-end'" :type="'date'">
-            Конец аренды:
-          </editable-row>
-          <editable-row 
-            :id="'rent-price'"
-            :value="'' + getTotalCost + '₽'">
-            Общая стоимость:
-          </editable-row>
+          <div class="info-row"></div>
+          <div class="info-row">
+            <editable-row 
+              :id="'rent-status'"
+              :value="getCartStatus">
+              Статус аренды:
+              </editable-row>
+          </div>
+          <div class="info-row">
+            <editable-row 
+              :id="'rent-start'"
+              :type="'date'"
+              :disabled="rentStartInputDisabled">
+              Начало аренды:
+            </editable-row>
+            <button class="edit-button"
+              @click="editStartTime">
+              <i class="icon-edit"></i>
+            </button>
+          </div>
+          <div class="info-row">
+            <editable-row
+              :id="'rent-end'"
+              :type="'date'"
+              :disabled="rentEndInputDisabled">
+              Конец аренды:
+            </editable-row>
+            <button
+              class="edit-button"
+              @click="editEndTime">
+              <i class="icon-edit"></i>
+            </button>
+          </div>
+          <div class="info-row">
+            <editable-row
+              :id="'rent-price'"
+              :value="'' + getTotalCost + '₽'">
+              Общая стоимость:
+            </editable-row>
+          </div>
+
         </div>
       </section>
       <section class="action-block">
@@ -114,5 +149,36 @@ export default {
 
   .action-block .round-button {
     margin-right: 20px;
+  }
+
+  .info-row {
+    display: grid;
+    grid-template-columns: auto 10%;
+  }
+
+  .info-row .edit-button {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    padding: 0;
+
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    border: 1px solid transparent;
+    border-radius: 30px;
+    background-color: transparent;
+    transition: .3s ease;
+  }
+
+  .info-row .edit-button:hover {
+    transform: translateY(-3px);
+  }
+
+  .info-row .edit-button i.icon-edit {
+    color: var(--color-main-accent);
+    font-size: 24px;
   }
 </style>
