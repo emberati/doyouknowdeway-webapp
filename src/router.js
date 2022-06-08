@@ -11,7 +11,8 @@ const routes = [
   {
     path: '/',
     name: 'index',
-    component: Main
+    component: Main,
+    redirect: 'catalog'
   },
   {
     path: '/catalog',

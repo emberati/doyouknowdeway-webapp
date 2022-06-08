@@ -141,6 +141,7 @@ export default {
           v-for="item in getCartItems"
           :key="'item-card-' + item.id"
           :item="item"
+          :btnText="'Убрать'"
           @itemAdd="removeFromCart"/>
       </template>
     </item-grid>

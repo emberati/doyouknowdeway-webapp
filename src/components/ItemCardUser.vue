@@ -16,7 +16,8 @@ export default {
       description: String,
       cost_per_hour: Number,
       imageUrl: String
-    }
+    },
+    btnText: String
   },
   methods: {
     onButtonAddClicked(e) {
@@ -75,7 +76,7 @@ export default {
         @mousedown.stop
         @mouseup.stop
         @click="onButtonAddClicked">
-          Добавить
+          {{btnText? btnText: 'Добавить'}}
       </round-button>
     </template>
   </item-card>

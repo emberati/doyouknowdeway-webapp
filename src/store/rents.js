@@ -1,15 +1,16 @@
 import { defineStore } from 'pinia'
+import {
+  saveActiveRent,
+  loadActiveRent,
+  saveArchiveRents,
+  loadArchiveRents
+} from '@/handlers/rents'
 
 export const useRentsStore = defineStore({
   id: 'rents',
   state: () => ({
-    archiveRents: [],
-    activeRent: {
-      status: 'Корзина не собрана!',
-      rentStart: '',
-      rentEnd: '',
-      items: [],
-    }
+    archiveRents: loadArchiveRents(),
+    activeRent: loadActiveRent()
   }),
   getters: {
     isCartNotEmpty(store) {
@@ -40,9 +41,12 @@ export const useRentsStore = defineStore({
       this.activeRent.status = this.getCartStatus
     },
     removeFromCart(item) {
-    //   this.activeRent.items.remove(item)
-      console.log('Removing from cart is NOT implemented yet...')
+      var index = this.activeRent.items.indexOf(item);
+      if (~index) {
+        this.activeRent.items.splice(index, 1);
+      }
       this.activeRent.status = this.getCartStatus
+      saveActiveRent(this.activeRent)
     },
     clearCart() {
       if (!this.activeRent.items.length) return
@@ -52,6 +56,7 @@ export const useRentsStore = defineStore({
         rentEnd: '',
         items: []
       }
+      saveActiveRent(null)
     },
     archiveRent() {
       this.archiveRents.push({
@@ -62,6 +67,7 @@ export const useRentsStore = defineStore({
         totalCost: this.getTotalCost
       })
       this.clearCart()
+      saveArchiveRents(this.archiveRents)
     },
     saveActiveRent() {
       localStorage.setItem(
