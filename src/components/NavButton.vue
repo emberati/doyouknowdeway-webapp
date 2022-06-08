@@ -1,7 +1,7 @@
 <script>
 export default {
     name: 'nav-button',
-    emits: ['hover'],
+    emits: ['hover', 'click'],
     props: {
         icon: {
             type: String,
@@ -9,7 +9,7 @@ export default {
         },
         link: {
             type: String,
-            required: true
+            required: false
         },
         notifications: Number
     },
@@ -20,6 +20,13 @@ export default {
         onMouseEnter(e) {
             this.$emit('hover', this.button)
         },
+        handleClick() {
+            if (this.link) {
+                this.$router.push(this.link)
+            } else {
+                this.$emit('click')
+            }
+        }
     },
     mounted() {
         window.addEventListener('load', () => {
@@ -37,7 +44,7 @@ export default {
     class="nav-button button"
     @mouseenter="onMouseEnter"
     @mouseleave="onMouseLeave"
-    @click="$router.push(link)">
+    @click="handleClick">
     <i :class="icon"></i>
     <span v-if="notifications" class="notifications">{{notifications}}</span>
     <span>

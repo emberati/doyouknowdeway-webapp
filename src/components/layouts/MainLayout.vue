@@ -19,8 +19,20 @@ export default {
   setup() {
     const store = useGlobalStore()
     const auth = useAuthStore()
-    auth.login('evkakiy@gmail.com', 'evkakiy')
-    console.log("creditionals: ", auth.creditionals)
+    // auth.login('evkakiy@gmail.com', 'evkakiy')
+    // console.log("creditionals: ", auth.creditionals)
+
+    const {
+      getUserLogin,
+      getUserRole
+    } = storeToRefs(auth)
+
+    const {
+      login,
+      logout,
+      register
+    } = auth
+
     const {
       isAuthDialogVisible,
       isLoading,
@@ -34,6 +46,13 @@ export default {
 
     return {
       store,
+      
+      login,
+      logout,
+      register,
+      getUserLogin,
+      getUserRole,
+
       isLoading,
       getRentsNotifications,
       isAuthDialogVisible,
@@ -48,6 +67,7 @@ export default {
   <header>
     <header-nav v-model="store.query"
       :loading="isLoading"
+      :login="getUserLogin"
       :rentsNotifications="getRentsNotifications"/>
   </header>
   <div v-if="!isLoading" class="page-body container">

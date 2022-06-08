@@ -11,10 +11,18 @@ export default {
       required: false,
       default: 'text'
     },
+    name: {
+      type: String,
+      required: false
+    },
     placeholder: {
       type: undefined,
       required: false,
       default: ''
+    },
+    autocomplete: {
+      type: String,
+      required: false,
     },
     disabled: {
       type: Boolean,
@@ -43,8 +51,10 @@ export default {
   <flat-input
     :id="id"
     :type="type"
+    :name="name"
     :placeholder="placeholder"
     :disabled="disabled"
+    :autocomplete="autocomplete"
     :modelValue="modelValue"
     @update:modelValue="onUpdate"
     />

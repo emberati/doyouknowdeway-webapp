@@ -1,10 +1,10 @@
 import {LoginAPIInstance, DefaultAPIInstance} from '@/api'
 
 export const AuthAPI = {
-  login(email, password) {
+  login(data) {
     const url = '/login'
-    const data = {email, password}
-    return LoginAPIInstance.post(url, data)
+    console.log(JSON.stringify(data))
+    return LoginAPIInstance.post(url, JSON.stringify(data))
   },
   logout() {
     const url = '/logout'

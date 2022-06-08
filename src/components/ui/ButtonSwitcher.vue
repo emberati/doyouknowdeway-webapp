@@ -42,9 +42,7 @@ export default {
         }
     },
     mounted() {
-        window.addEventListener('load', () => {
-            this.select(this.$refs.btn[0])
-        })
+        this.select(this.$refs.btn[0])
     }
 }
 </script>

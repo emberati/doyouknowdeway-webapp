@@ -1,4 +1,5 @@
 import Main from '@/components/pages/Main'
+import Profile from '@/components/pages/Profile'
 import Catalog from '@/components/pages/Catalog'
 import Rents from '@/components/pages/Rents'
 import AdminCatalog from '@/components/pages/AdminCatalog'
@@ -16,6 +17,11 @@ const routes = [
     path: '/catalog',
     name: 'catalog',
     component: Catalog
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile
   },
   {
     path: '/rents',

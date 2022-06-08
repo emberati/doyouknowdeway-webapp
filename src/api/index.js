@@ -18,9 +18,6 @@ const loginConfig = {
   }
 }
 
-console.log(loginConfig)
-console.log(defaultConfig)
-
 export const DefaultAPIInstance = axios.create(defaultConfig)
 export const LoginAPIInstance = axios.create(loginConfig)
 

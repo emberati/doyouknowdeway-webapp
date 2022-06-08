@@ -1,10 +1,9 @@
 <script>
+import { useAuthStore } from '@/store/auth'
 export default {
   name: 'auth-form',
   emits: ['hide'],
   data: () => ({
-    email: '',
-    password: '',
     lastOption: String,
     currentOption: String,
     loginData: {
@@ -13,6 +12,7 @@ export default {
     },
     registerData: {
       firstname: '',
+      secondname: '',
       lastname: '',
       login: '',
       email: '',
@@ -30,10 +30,20 @@ export default {
     },
     onSwitch(option) {
       this.currentOption = option
+      const auth = useAuthStore()
       if (this.currentOption != this.lastOption) {
         this.lastOption = this.currentOption
-      } else {
-        console.log(this.currentOption)
+      } else if (this.currentOption == 'Войти') {
+        auth.login(this.loginData)
+      } else if (this.currentOption == 'Зарегистрироваться') {
+        auth.register({
+          first_name: this.registerData.firstname,
+          second_name: this.registerData.secondname,
+          last_name: this.registerData.lastname,
+          login: this.registerData.login,
+          email: this.registerData.email,
+          password: this.registerData.password
+        })
       }
       
     }
@@ -52,11 +62,13 @@ export default {
         <form-input
           :id="'email-input'"
           :label="'Электронная почта'"
+          :autocomplete="'username'"
           v-model="loginData.email"/>
         <form-input
           :id="'password-input'"
           :label="'Пароль'"
           :type="'password'"
+          :autocomplete="'current-password'"
           v-model="loginData.password"/>
       </div>
       <div v-else class="form-inputs">
@@ -69,22 +81,32 @@ export default {
           :label="'Фамилия'"
           v-model="registerData.lastname"/>
         <form-input
+          :id="'secondname-input'"
+          :label="'Отчество'"
+          v-model="registerData.secondname"/>
+        <form-input
           :id="'login-input'"
           :label="'Логин'"
+          :autocomplete="'username'"
           v-model="registerData.login"/>
         <form-input
           :id="'email-input'"
           :label="'Электронная почта'"
+          :autocomplete="'username'"
           v-model="registerData.email"/>
         <form-input
           :id="'password-input'"
           :label="'Пароль'"
           :type="'password'"
+          :name="'password'"
+          :autocomplete="'new-password'"
           v-model="registerData.password"/>
         <form-input
           :id="'repeat-password-input'"
           :label="'Повторите пароль'"
           :type="'password'"
+          :name="'password'"
+          :autocomplete="'new-password'"
           v-model="registerData.repeatPassword"/>
     </div>
     <button-switcher

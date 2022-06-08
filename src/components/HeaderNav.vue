@@ -1,11 +1,13 @@
 <script>
 import NavButton from '@/components/NavButton'
+import { useGlobalStore } from '@/store/global'
 export default {
     name: 'header-nav',
     components: {
         NavButton
     },
     props: {
+        login: String,
         loading: Boolean,
         rentsNotifications: Number
     },
@@ -31,15 +33,19 @@ export default {
         onHeaderResize() {
             console.log('resized')
             this.resizeSelection()
+        },
+        profileAction() {
+            if (this.login) {
+                this.$router.push('/profile')
+            } else {
+                const global = useGlobalStore()
+                global.showAuthDialog()
+            }
         }
     },
     computed: {
         profileLabel() {
-            const label = {
-                false: 'Войти',
-                true: 'Профиль'
-            }
-            return label[this.authorized]
+            return this.login || 'Войти'
         },
     },
     mounted() {
@@ -60,8 +66,8 @@ export default {
         <nav>
           <nav-button
             :icon="'icon-profile'"
-            :link="'/profile'"
             @hover="onNavButtonHover"
+            @click="profileAction"
           >{{profileLabel}}</nav-button>
           <nav-button
             :icon="'icon-rents'"
