@@ -6,7 +6,7 @@ import { useAuthStore } from '@/store/auth'
 import ContentCard from '@/components/ContentCard'
 import ItemGrid from '@/components/ItemGrid'
 import ItemCardUser from '@/components/ItemCardUser'
-import { useGlobalStore } from '../store/global'
+import { useGlobalStore } from '@/store/global'
 
 export default {
   name: 'rent-content',
@@ -19,7 +19,13 @@ export default {
     showCartItems: false,
     dialogVisible: true,
     rentStartInputDisabled: true,
-    rentEndInputDisabled: true
+    rentEndInputDisabled: true,
+    rent: {
+      status: '',
+      startTime: '',
+      endTime: '',
+      totalCost: ''
+    }
   }),
   methods: {
     onExpandItems() {
@@ -97,6 +103,7 @@ export default {
             <editable-row 
               :id="'rent-start'"
               :type="'date'"
+              v-model="rent.startTime"
               :disabled="rentStartInputDisabled">
               Начало аренды:
             </editable-row>
@@ -109,6 +116,7 @@ export default {
             <editable-row
               :id="'rent-end'"
               :type="'date'"
+              v-model="rent.endTime"
               :disabled="rentEndInputDisabled">
               Конец аренды:
             </editable-row>
