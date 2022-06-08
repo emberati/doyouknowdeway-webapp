@@ -31,6 +31,7 @@ export default {
   font-weight: 500;
 
   border: none;
+  border-radius: 0;
   border-bottom: 1px solid var(--color-main-accent);
   box-shadow: 0 0 0 0 var(--color-main-layer);
   outline: none;
