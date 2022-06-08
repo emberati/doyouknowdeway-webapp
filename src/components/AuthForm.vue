@@ -4,6 +4,7 @@ export default {
   name: 'auth-form',
   emits: ['hide'],
   data: () => ({
+    auth: useAuthStore(),
     lastOption: String,
     currentOption: String,
     loginData: {
@@ -22,29 +23,37 @@ export default {
   }),
   methods: {
     onSubmit() {
-      console.log('This form can not be submitted!')
+      if (this.currentOption == 'Войти') {
+        this.submitLogin()
+      } else if (this.currentOption == 'Зарегистрироваться') {
+        this.submitRegister()
+      }
     },
     hideDialog() {
       this.$emit('hide')
     },
     onSwitch(option) {
       this.currentOption = option
-      const auth = useAuthStore()
       if (this.currentOption != this.lastOption) {
         this.lastOption = this.currentOption
       } else if (this.currentOption == 'Войти') {
-        auth.login(this.loginData).then(() => {this.hideDialog()})
+        this.submitLogin()
       } else if (this.currentOption == 'Зарегистрироваться') {
-        auth.register({
-          first_name: this.registerData.firstname,
-          second_name: this.registerData.secondname,
-          last_name: this.registerData.lastname,
-          login: this.registerData.login,
-          email: this.registerData.email,
-          password: this.registerData.password
-        }).then(() => this.hideDialog())
+        this.submitRegister()
       }
-      
+    },
+    submitLogin() {
+      this.auth.login(this.loginData).then(() => {this.hideDialog()})
+    },
+    submitRegister() {
+      this.auth.register({
+        first_name: this.registerData.firstname,
+        second_name: this.registerData.secondname,
+        last_name: this.registerData.lastname,
+        login: this.registerData.login,
+        email: this.registerData.email,
+        password: this.registerData.password
+      }).then(() => this.hideDialog())
     }
   }
 }
@@ -62,36 +71,43 @@ export default {
           :id="'email-input'"
           :label="'Электронная почта'"
           :autocomplete="'username'"
+          @submit="onSubmit"
           v-model="loginData.email"/>
         <form-input
           :id="'password-input'"
           :label="'Пароль'"
           :type="'password'"
           :autocomplete="'current-password'"
+          @submit="onSubmit"
           v-model="loginData.password"/>
       </div>
       <div v-else class="form-inputs">
         <form-input
           :id="'firstname-input'"
           :label="'Имя'"
+          @submit="onSubmit"
           v-model="registerData.firstname"/>
         <form-input
           :id="'lastname-input'"
           :label="'Фамилия'"
+          @submit="onSubmit"
           v-model="registerData.lastname"/>
         <form-input
           :id="'secondname-input'"
           :label="'Отчество'"
+          @submit="onSubmit"
           v-model="registerData.secondname"/>
         <form-input
           :id="'login-input'"
           :label="'Логин'"
           :autocomplete="'username'"
+          @submit="onSubmit"
           v-model="registerData.login"/>
         <form-input
           :id="'email-input'"
           :label="'Электронная почта'"
           :autocomplete="'username'"
+          @submit="onSubmit"
           v-model="registerData.email"/>
         <form-input
           :id="'password-input'"
@@ -99,6 +115,7 @@ export default {
           :type="'password'"
           :name="'password'"
           :autocomplete="'new-password'"
+          @submit="onSubmit"
           v-model="registerData.password"/>
         <form-input
           :id="'repeat-password-input'"
@@ -106,6 +123,7 @@ export default {
           :type="'password'"
           :name="'password'"
           :autocomplete="'new-password'"
+          @submit="onSubmit"
           v-model="registerData.repeatPassword"/>
     </div>
     <button-switcher

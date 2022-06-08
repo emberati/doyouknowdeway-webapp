@@ -39,21 +39,16 @@ export const useAuthStore = defineStore({
         this.creditionals.accessToken = data.access_token
         this.creditionals.refreshToken = data.refresh_token
         success = true
-        console.log("response: ", data)
-        console.log("creditionals: ", this.creditionals)
-      })
-      localStorage.setItem(
-        'auth.creditionals', 
-        JSON.stringify(this.creditionals)
-      )
-      global.setLoading(false)
-      console.log(this.creditionals)
+        localStorage.setItem(
+          'auth.creditionals', 
+          JSON.stringify(this.creditionals)
+        )
+      }).finally(() => {global.setLoading(false)})
       return success
     },
     logout() {
       localStorage.removeItem('auth.creditionals')
       this.creditionals = loadCreditionals()
-      console.log(this.creditionals)
     },
     async register(data) {
       this.logout()

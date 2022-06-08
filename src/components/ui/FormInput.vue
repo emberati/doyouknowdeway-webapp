@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'form-input',
+  emits: ['submit', 'update:modelValue'],
   props: {
     id: {
       type: String,
@@ -41,6 +42,11 @@ export default {
   methods: {
     onUpdate(value) {
       this.$emit('update:modelValue', value)
+    },
+    onKeyDown(e) {
+      if (e.key == 'Enter') {
+        this.$emit('submit')
+      }
     }
   }
 }
@@ -56,6 +62,7 @@ export default {
     :disabled="disabled"
     :autocomplete="autocomplete"
     :modelValue="modelValue"
+    @keydown="onKeyDown"
     @update:modelValue="onUpdate"
     />
 </template>

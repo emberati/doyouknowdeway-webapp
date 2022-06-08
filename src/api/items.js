@@ -16,18 +16,19 @@ export const ItemsAPI = {
    */
   getItem(id) {
     const url = `/items/${id}`
-    return DefaultAPIInstance.post(url)
+    return DefaultAPIInstance.get(url)
   },
   createItem(data) {
     const url = `/items`
     return DefaultAPIInstance.post(url, data)
   },
-  updateItem(id) {
-
+  updateItem(data) {
+    const url = `/items`
+    return DefaultAPIInstance.put(url, data)
   },
   deleteItemBy(id) {
     const url = `/items/${id}`
-    return DefaultAPIInstance.post(url)
+    return DefaultAPIInstance.delete(url)
   },
   
 }
