@@ -86,7 +86,6 @@ export default {
       <section>
         <h1>Активная аренда</h1>
         <div class="info-block">
-          <div class="info-row"></div>
           <div class="info-row">
             <editable-row 
               :id="'rent-status'"
@@ -126,7 +125,6 @@ export default {
               Общая стоимость:
             </editable-row>
           </div>
-
         </div>
       </section>
       <section class="action-block">
