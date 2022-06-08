@@ -1,14 +1,25 @@
 <script>
+import { storeToRefs } from 'pinia'
+import { useRentsStore } from '@/store/rents'
+import ArchiveRent from '@/components/ArchiveRent'
 import RentContent from '@/components/RentContent'
-import { useRentsStore } from '../../store/rents'
 
 export default {
   name: 'Rents',
   components: {
-    RentContent
+    RentContent,
+    ArchiveRent
   },
   setup() {
     const rents = useRentsStore()
+    
+    const {
+      getArchiveRents
+    } = storeToRefs(rents)
+
+    return {
+      getArchiveRents
+    }
   },
   mounted() {
     const rents = useRentsStore()
@@ -26,7 +37,18 @@ export default {
       <section>
         <h1>Мои аренды</h1>
       </section>
-      <rent-content/>
+      <section>
+        <rent-content/>
+      </section>
+      <section>
+        <h1>Архив арендованных товаров</h1>
+      </section>
+      <section>
+        <archive-rent
+          v-for="rent in getArchiveRents"
+          :key="Math.random()"
+          :rent="rent"/>
+      </section>
     </div>
   </div>
 </template>

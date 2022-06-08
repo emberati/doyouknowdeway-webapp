@@ -1,72 +1,6 @@
 import { defineStore } from 'pinia'
 import { useGlobalStore } from '@/store/global'
-
-function itemMatch(item, query) {
-  let size = item.size
-  size = size.split(" ")[0]
-  size = size.trim()
-  let nameMatch = false
-  let sizeMatch = false
-  let descriptionMatch = false
-
-  query.forEach(str => {
-    str = str.toLowerCase()
-    nameMatch ||= item.name.toLowerCase().includes(str)
-    sizeMatch ||= str === size.toLowerCase()
-    descriptionMatch ||= item.description.toLowerCase().includes(str)
-    console.log(str, size)
-  })
-
-  return {
-      name: nameMatch,
-      size: sizeMatch,
-      description: descriptionMatch
-  }
-}
-
-function filterItems(items, categories) {
-  if (!categories || !categories.length) return items
-
-  let result = []
-  for (let i = 0; i < items.length; i++) {
-    let item = items[i]
-    let match = false
-    for (let j = 0; j < categories.length; j++) {
-      let category = categories[j]
-      match ||= (
-        category.name.toLowerCase() == item.sex_id ||
-        category.name.toLowerCase() == item.age_id ||
-        category.name.toLowerCase() == item.season_id
-      )
-    }
-    if (match) result.push(item)
-  }
-  return result
-}
-
-function searchItems(items, query) {
-  query = query.match(/[^ ]+/g)
-  if (!query) return items
-
-  let itemsMatchName = []
-  let itemsMatchSize = []
-  let itemsMatchDescription = []
-  let itemsMatchNameAndSize = []
-
-  items.forEach(item => {
-    // Маппинг совпадений
-    let matching = itemMatch(item, query)
-      if (matching.name) itemsMatchName.push(item)
-      if (matching.name && matching.size) itemsMatchNameAndSize.push(item)
-      if (matching.description) itemsMatchDescription.push(item)
-  })
-
-  // Приоритеты поиска рещультата
-  if (itemsMatchNameAndSize.length > 0) return itemsMatchNameAndSize
-  if (itemsMatchName.length > 0) return itemsMatchName
-  if (itemsMatchDescription.length > 0) return itemsMatchDescription
-  return []
-}
+import { filterItems, searchItems, saveItems, loadItems } from '@/handlers/items'
 
 export const useCatalogStore = defineStore('catalog', {
   state: () => ({
@@ -150,6 +84,31 @@ export const useCatalogStore = defineStore('catalog', {
     setCategoryFilters(filters) {
       this.selectedCategories = filters
     },
+    editCatalogItem(editedItem) {
+      // replace on post
+      let id = editedItem.id
+      for (let item of this.items) {
+        if (item.id == id) {
+          item.age_id = editedItem.age_id
+          item.sex_id = editedItem.sex_id
+          item.season_id = editedItem.season_id
+          item.size = editedItem.size
+          item.cost_per_hour = editedItem.cost_per_hour
+          item.description = editedItem.description
+          item.imageUrl = editedItem.imageUrl
+          break
+        }
+        saveItems(this.items)
+      }
+      // this.items
+    },
+    deleteCatalogItem(deletedItem) {
+      var index = this.items.indexOf(deletedItem);
+      if (~index) {
+        this.items.splice(index, 1);
+      }
+      saveItems(this.items)
+    },
     setCatalogItems(items) {
       this.items = items
     },
@@ -160,7 +119,7 @@ export const useCatalogStore = defineStore('catalog', {
       let promise = await new Promise(resolve => {
         setTimeout(() => {
           resolve()
-          this.items = global.testFetchData
+          this.items = loadItems()
           global.setLoading(false)
         }, 1000)
       })

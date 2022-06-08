@@ -23,7 +23,21 @@ export default {
   }),
   methods: {
     deleteButtonClicked() {
-      console.log('Deleting items is not supported yet.')
+      this.$emit('deleteItem', this.item)
+    },
+    saveButtonClicked() {
+      this.editMode = false
+      this.itemCardElement.collapseCardContent()
+      this.$emit('editItem', {
+        id: this.id,
+        name: this.name,
+        age_id: this.age_id,
+        sex_id: this.sex_id,
+        season_id: this.season_id,
+        description: this.description,
+        cost_per_hour: this.cost_per_hour,
+        imageUr: this.imageUrl
+      })
     },
     editModeOn() {
       if (!this.editMode) {
@@ -63,7 +77,7 @@ export default {
                 @mouseup.stop
                 :id="'item-size'"
                 :disabled="!editMode"
-                :value="item.size"
+                v-model="item.size"
                 :variant="'latent'">
                 Размер:
               </editable-row>            
@@ -80,7 +94,7 @@ export default {
                 @mouseup.stop
                 :id="'item-size'"
                 :disabled="!editMode"
-                :value="item.age_id"
+                v-model="item.age_id"
                 :variant="'latent'">
                 Возраст:
               </editable-row>
@@ -97,7 +111,7 @@ export default {
                 @mouseup.stop
                 :id="'item-size'"
                 :disabled="!editMode"
-                :value="item.sex_id"
+                v-model="item.sex_id"
                 :variant="'latent'">
                 Пол:
               </editable-row>
@@ -114,7 +128,7 @@ export default {
                 @mouseup.stop
                 :id="'item-size'"
                 :disabled="!editMode"
-                :value="item.season_id"
+                v-model="item.season_id"
                 :variant="'latent'">
                 Сезон:
               </editable-row>
@@ -145,7 +159,7 @@ export default {
           @mouseup.stop
           :id="'item-price'"
           :disabled="!editMode"
-          :value="item.cost_per_hour"
+          v-model="item.cost_per_hour"
           :variant="'latent'">
           Цена:
         </editable-row>
@@ -173,7 +187,7 @@ export default {
         :variant="'white'"
         @mousedown.stop
         @mouseup.stop
-        @click="onButtonAddClicked">
+        @click="saveButtonClicked">
           Сохранить
       </round-button>
     </template>

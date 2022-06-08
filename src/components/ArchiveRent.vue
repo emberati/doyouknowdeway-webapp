@@ -1,25 +1,29 @@
 <script>
 import {storeToRefs} from 'pinia'
 import {useRentsStore} from '@/store/rents'
-import { useAuthStore } from '@/store/auth'
-
 import ContentCard from '@/components/ContentCard'
 import ItemGrid from '@/components/ItemGrid'
 import ItemCardUser from '@/components/ItemCardUser'
-import { useGlobalStore } from '../store/global'
+
 
 export default {
-  name: 'rent-content',
+  name: 'archive-rents',
   components: {
     ContentCard,
     ItemGrid,
     ItemCardUser,
   },
+  props: {
+    rent: {
+      status: String,
+      rentStart: String,
+      rentEnd: String,
+      items: [],
+    }
+  },
   data: () => ({
     showCartItems: false,
-    dialogVisible: true,
-    rentStartInputDisabled: true,
-    rentEndInputDisabled: true
+    dialogVisible: true
   }),
   methods: {
     onExpandItems() {
@@ -34,47 +38,12 @@ export default {
     resetEditing() {
       this.rentStartInputDisabled = true
       this.rentEndInputDisabled = true
-    },
-    pay() {
-      const rents = useRentsStore()
-      const auth = useAuthStore()
-      const global = useGlobalStore()
-
-      if (auth.getUserLogin)
-        rents.archiveRent()
-      else global.showAuthDialog()
     }
   },
   computed: {
     expandItemsText() {
       if (this.showCartItems) return 'Скрыть товары'
       else return 'Показать товары'
-    }
-  },
-  setup() {
-    const rents = useRentsStore()
-
-    const {
-      getCartStatus,
-      getTotalCost,
-      getCartItems,
-      getCartItemsCount
-    } = storeToRefs(rents)
-
-    const {
-      clearCart,
-      removeFromCart,
-      archiveRent
-    } = rents
-
-    return {
-      getCartStatus,
-      getTotalCost,
-      getCartItems,
-      clearCart,
-      removeFromCart,
-      getCartItemsCount,
-      archiveRent
     }
   }
 }
@@ -84,13 +53,13 @@ export default {
   <content-card>
     <div class="content">
       <section>
-        <h1>Активная аренда</h1>
+        <h1>Моя аренда</h1>
         <div class="info-block">
           <div class="info-row"></div>
           <div class="info-row">
             <editable-row 
               :id="'rent-status'"
-              :value="getCartStatus">
+              :value="rent.status">
               Статус аренды:
               </editable-row>
           </div>
@@ -98,31 +67,22 @@ export default {
             <editable-row 
               :id="'rent-start'"
               :type="'date'"
-              :disabled="rentStartInputDisabled">
+              :value="rent.rentStart">
               Начало аренды:
             </editable-row>
-            <button class="edit-button"
-              @click="editStartTime">
-              <i class="icon-edit"></i>
-            </button>
           </div>
           <div class="info-row">
             <editable-row
               :id="'rent-end'"
               :type="'date'"
-              :disabled="rentEndInputDisabled">
+              :value="rent.rentStart">
               Конец аренды:
             </editable-row>
-            <button
-              class="edit-button"
-              @click="editEndTime">
-              <i class="icon-edit"></i>
-            </button>
           </div>
           <div class="info-row">
             <editable-row
               :id="'rent-price'"
-              :value="'' + getTotalCost + '₽'">
+              :value="'' + rent.totalCost + '₽'">
               Общая стоимость:
             </editable-row>
           </div>
@@ -131,16 +91,16 @@ export default {
       </section>
       <section class="action-block">
         <round-button :variant="'regular'" @click="onExpandItems">{{ expandItemsText }}</round-button>
-        <round-button :variant="'danger'" @click="clearCart">Удалить</round-button>
-        <round-button :variant="'accept'" @click="pay">Оплалить</round-button>
+        <!-- <round-button :variant="'danger'" @click="clearCart">Удалить</round-button> -->
+        <!-- <round-button :variant="'accept'" @click="archiveRent">Оплалить</round-button> -->
       </section>
     </div>
   </content-card>
-  <section v-if="showCartItems && getCartItemsCount">
-    <item-grid>
+  <section>
+    <item-grid v-if="showCartItems">
       <template #item-list>
         <item-card-user
-          v-for="item in getCartItems"
+          v-for="item in rent.items"
           :key="'item-card-' + item.id"
           :item="item"
           @itemAdd="removeFromCart"/>

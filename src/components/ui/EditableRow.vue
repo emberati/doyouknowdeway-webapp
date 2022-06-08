@@ -13,6 +13,9 @@ export default {
     value: {
       required: false
     },
+    modelValue: {
+      required: false
+    },
     disabled: {
       type: Boolean,
       required: false,
@@ -44,7 +47,8 @@ export default {
       class="invisible-input"
       :class="variant"
       :type="type"
-      :value="value"
+      :value="modelValue? modelValue : value"
+      @input="$emit('update:modelValue', $event.target.value)"
       :disabled="disabled"
       @focus="focused = true"
       @blur="focused = false">

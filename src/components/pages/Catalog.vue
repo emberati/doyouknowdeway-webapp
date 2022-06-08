@@ -37,7 +37,9 @@ export default {
         fetchItems,
         setCatalogItems,
         checkCategoryById,
-        setCategoryFilters
+        setCategoryFilters,
+        editCatalogItem,
+        deleteCatalogItem
       } = catalog
 
       const {
@@ -52,6 +54,8 @@ export default {
         getAllCategories,
         setCategoryFilters,
         setCatalogItems,
+        editCatalogItem,
+        deleteCatalogItem,
         checkCategoryById
       }
     }
@@ -76,7 +80,9 @@ export default {
               v-for="item in getItems"
               :key="'item-card-' + item.id"
               :item="item"
-              @itemAdd="addToCart"/>
+              @itemAdd="addToCart"
+              @editItem="editCatalogItem"
+              @deleteItem="deleteCatalogItem"/>
           </template>
           <template #item-list v-else>
             <item-card-user

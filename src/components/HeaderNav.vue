@@ -21,6 +21,7 @@ export default {
     methods: {
         search(data) {
             this.$emit('update:modelValue', data)
+            this.$router.push('/catalog')
         },
         resizeSelection() {
             this.selection.style.width = `${this.hoveredElement.offsetWidth}px`

@@ -29,6 +29,9 @@ export const useRentsStore = defineStore({
     },
     getCartItemsCount(store) {
       return store.activeRent.items.length
+    },
+    getArchiveRents(store) {
+      return store.archiveRents
     }
   },
   actions: {
@@ -51,7 +54,13 @@ export const useRentsStore = defineStore({
       }
     },
     archiveRent() {
-      this.archiveRents.push(this.activeRent)
+      this.archiveRents.push({
+        status: 'В архиве',
+        rentStart: this.activeRent.rentStart,
+        rentEnd: this.activeRent.rentStart,
+        items: this.activeRent.items,
+        totalCost: this.getTotalCost
+      })
       this.clearCart()
     },
     saveActiveRent() {
