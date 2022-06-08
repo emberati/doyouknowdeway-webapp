@@ -140,7 +140,7 @@ export default {
 <style scoped>
   #auth-form {
     box-sizing: border-box;
-    padding: 90px;
+    padding: 50px;
     padding-bottom: 50px;
   }
 
@@ -161,18 +161,18 @@ export default {
 
 <style>
   #auth-form label {
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 700;
   }
 
   #auth-form input {
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
   }
 
   #auth-form .button-switcher {
-    margin-top: 20px;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
 </style>
 

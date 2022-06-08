@@ -23,7 +23,7 @@ export default {
 .flat-input {
   width: 100%;
 
-  padding: 10px;
+  padding: 5px;
   padding-left: 0;
   padding-right: 0;
   box-sizing: border-box;
