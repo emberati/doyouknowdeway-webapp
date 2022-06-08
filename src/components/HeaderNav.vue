@@ -26,6 +26,9 @@ export default {
             this.selection.style.width = `${this.hoveredElement.offsetWidth}px`
             this.selection.style.left = `${this.hoveredElement.offsetLeft}px`
         },
+        onProfileButtonHover(e) {
+            this.onNavButtonHover(e)
+        },
         onNavButtonHover(e) {
             this.hoveredElement = e
             this.resizeSelection()

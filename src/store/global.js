@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import { useRentsStore } from './rents'
+import { useRentsStore } from '@/store/rents'
+import { useAuthStore } from '@/store/auth'
 
 export const useGlobalStore = defineStore({
   id: 'global',
@@ -151,6 +152,12 @@ export const useGlobalStore = defineStore({
   getters: {
     isLoading(store) {
         return store.loading
+    },
+    isUserAdmin() {
+      return useAuthStore().isUserAdmin
+    },
+    getUserLogin() {
+      return useAuthStore().getUserLogin
     },
     getRentsNotifications() {
       const rents = useRentsStore()

@@ -26,7 +26,6 @@ export default {
     },
     hideDialog() {
       this.$emit('hide')
-      console.log('hide')
     },
     onSwitch(option) {
       this.currentOption = option
@@ -34,7 +33,7 @@ export default {
       if (this.currentOption != this.lastOption) {
         this.lastOption = this.currentOption
       } else if (this.currentOption == 'Войти') {
-        auth.login(this.loginData)
+        auth.login(this.loginData).then(() => {this.hideDialog()})
       } else if (this.currentOption == 'Зарегистрироваться') {
         auth.register({
           first_name: this.registerData.firstname,
@@ -43,7 +42,7 @@ export default {
           login: this.registerData.login,
           email: this.registerData.email,
           password: this.registerData.password
-        })
+        }).then(() => this.hideDialog())
       }
       
     }

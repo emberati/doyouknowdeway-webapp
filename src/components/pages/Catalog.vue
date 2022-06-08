@@ -20,10 +20,13 @@ export default {
       await catalog.fetchItems()
     },
     setup() {
-      console.log('setup')
       const catalog = useCatalogStore()
       const global = useGlobalStore()
       const rents = useRentsStore()
+
+      const {
+        isUserAdmin
+      } = storeToRefs(global)
 
       const {
         getItems,
@@ -42,10 +45,10 @@ export default {
       } = rents
 
       return {
-        global,
         getItems,
         addToCart,
         fetchItems,
+        isUserAdmin,
         getAllCategories,
         setCategoryFilters,
         setCatalogItems,
@@ -68,7 +71,7 @@ export default {
       <section id="items-catalog">
         <h1>Каталог товаров</h1>
         <item-grid @itemAdd="addToCart">
-          <template #item-list v-if="global.adminMode">
+          <template #item-list v-if="isUserAdmin">
             <item-card-admin
               v-for="item in getItems"
               :key="'item-card-' + item.id"

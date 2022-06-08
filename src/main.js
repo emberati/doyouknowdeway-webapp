@@ -22,7 +22,7 @@ const pinia = createPinia()
 
 ui.forEach(item => {
   app.component(item.name, item)
-  console.log(item.name)
+  // console.log(item.name)
 })
 
 app

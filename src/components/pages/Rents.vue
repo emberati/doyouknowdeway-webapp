@@ -12,7 +12,6 @@ export default {
   },
   mounted() {
     const rents = useRentsStore()
-    console.log('Cart has items: ', rents.isCartNotEmpty)
   },
   unmounted() {
     const rents = useRentsStore()

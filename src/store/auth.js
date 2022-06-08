@@ -16,6 +16,9 @@ export const useAuthStore = defineStore({
     creditionals: loadCreditionals()
   }),
   getters: {
+    isUserAdmin(store) {
+      return store.creditionals.role == 'ADMIN' || false
+    },
     getUserLogin(store) {
       return store.creditionals.login
     },
@@ -24,31 +27,38 @@ export const useAuthStore = defineStore({
     },
   },
   actions: {
-    login(data) {
-      AuthAPI.login(data).then((res) => {
-        this.creditionals.login = res.login
-        this.creditionals.role = res.role
-        this.creditionals.accessToken = res.access_token
-        this.creditionals.refreshToken = res.refresh_token
+    async login(data) {
+      let success = false
+      await AuthAPI.login(data).then((res) => {
+        let data = res.data
+        this.creditionals.login = data.login
+        this.creditionals.role = data.role
+        this.creditionals.accessToken = data.access_token
+        this.creditionals.refreshToken = data.refresh_token
+        success = true
+        console.log("response: ", data)
+        console.log("creditionals: ", this.creditionals)
       })
       localStorage.setItem(
         'auth.creditionals', 
         JSON.stringify(this.creditionals)
       )
       console.log(this.creditionals)
+      return success
     },
     logout() {
       localStorage.removeItem('auth.creditionals')
       this.creditionals = loadCreditionals()
       console.log(this.creditionals)
     },
-    register(data) {
-      console.log('register data: ', JSON.stringify(data))
-      AuthAPI.register(data).then((res) => {
-        this.creditionals.login = res.login
-        this.creditionals.role = res.role
-        this.creditionals.accessToken = res.access_token
-        this.creditionals.refreshToken = res.refresh_token
+    async register(data) {
+      this.logout()
+      await AuthAPI.register(data).then((res) => {
+        let data = res.data
+        this.creditionals.login = data.login
+        this.creditionals.role = data.role
+        this.creditionals.accessToken = data.access_token
+        this.creditionals.refreshToken = data.refresh_token
       })
       localStorage.setItem(
         'auth.creditionals', 

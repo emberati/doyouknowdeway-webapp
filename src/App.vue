@@ -9,7 +9,6 @@ export default {
   computed: {
     layout() {
       const layoutName = this.$route.meta.layout || 'main-layout'
-      console.log('layout: ', layoutName)
       return layoutName
     }
   },

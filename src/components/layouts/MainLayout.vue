@@ -1,6 +1,5 @@
 <script>
 import { useGlobalStore } from '@/store/global'
-import { useAuthStore } from '@/store/auth'
 import { storeToRefs } from 'pinia'
 
 import ItemCard from "@/components/ItemCard"
@@ -18,22 +17,9 @@ export default {
   },
   setup() {
     const store = useGlobalStore()
-    const auth = useAuthStore()
-    // auth.login('evkakiy@gmail.com', 'evkakiy')
-    // console.log("creditionals: ", auth.creditionals)
 
     const {
       getUserLogin,
-      getUserRole
-    } = storeToRefs(auth)
-
-    const {
-      login,
-      logout,
-      register
-    } = auth
-
-    const {
       isAuthDialogVisible,
       isLoading,
       getRentsNotifications
@@ -46,12 +32,8 @@ export default {
 
     return {
       store,
-      
-      login,
-      logout,
-      register,
+
       getUserLogin,
-      getUserRole,
 
       isLoading,
       getRentsNotifications,
@@ -71,9 +53,11 @@ export default {
       :rentsNotifications="getRentsNotifications"/>
   </header>
   <div v-if="!isLoading" class="page-body container">
-    <fixed-dialog v-if="isAuthDialogVisible" @hide="hideAuthDialog">
-      <auth-form @hide="hideAuthDialog"/>
-    </fixed-dialog>
+    <transition name="login-dialog">
+      <fixed-dialog v-if="isAuthDialogVisible" @hide="hideAuthDialog">
+        <auth-form @hide="hideAuthDialog"/>
+      </fixed-dialog>
+    </transition>
     <slot></slot>
   </div>
   <div v-else>
@@ -85,5 +69,14 @@ export default {
   </footer>
 </template>
 
-<style>
+<style scoped>
+.login-dialog-enter-active,
+.login-dialog-leave-active {
+  transition: .5s ease;
+}
+
+.login-dialog-enter-from,
+.login-dialog-leave-to {
+  opacity: 0;
+}
 </style>

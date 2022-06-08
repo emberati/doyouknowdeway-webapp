@@ -18,12 +18,10 @@ export default {
   methods: {
     onMouseDown() {
       this.itemCardElement.classList.add('clicked')
-      console.log('mousedown')
     },
     onMouseUp() {
       this.itemCardElement.classList.remove('clicked')
       this.toggleCardContent()
-      console.log('mouseup')
     },
     toggleCardContent() {
       this.descriptionElement.classList.toggle('expanded')
