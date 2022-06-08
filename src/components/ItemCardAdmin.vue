@@ -174,7 +174,7 @@ export default {
         @mousedown.stop
         @mouseup.stop
         @click="onButtonAddClicked">
-          Добавить
+          Сохранить
       </round-button>
     </template>
   </item-card>

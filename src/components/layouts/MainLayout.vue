@@ -52,12 +52,12 @@ export default {
       :login="getUserLogin"
       :rentsNotifications="getRentsNotifications"/>
   </header>
+  <transition name="login-dialog">
+    <fixed-dialog v-if="isAuthDialogVisible" @hide="hideAuthDialog">
+      <auth-form @hide="hideAuthDialog"/>
+    </fixed-dialog>
+  </transition>
   <div v-if="!isLoading" class="page-body container">
-    <transition name="login-dialog">
-      <fixed-dialog v-if="isAuthDialogVisible" @hide="hideAuthDialog">
-        <auth-form @hide="hideAuthDialog"/>
-      </fixed-dialog>
-    </transition>
     <slot></slot>
   </div>
   <div v-else>

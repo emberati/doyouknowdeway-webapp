@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { AuthAPI } from '@/api/auth'
+import { useGlobalStore } from '@/store/global'
 
 function loadCreditionals() {
   return JSON.parse(localStorage.getItem('auth.creditionals')) || {
@@ -29,6 +30,8 @@ export const useAuthStore = defineStore({
   actions: {
     async login(data) {
       let success = false
+      const global = useGlobalStore()
+      global.setLoading(true)
       await AuthAPI.login(data).then((res) => {
         let data = res.data
         this.creditionals.login = data.login
@@ -43,6 +46,7 @@ export const useAuthStore = defineStore({
         'auth.creditionals', 
         JSON.stringify(this.creditionals)
       )
+      global.setLoading(false)
       console.log(this.creditionals)
       return success
     },
