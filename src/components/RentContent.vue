@@ -158,8 +158,10 @@ export default {
     max-width: 500px;
   }
 
-  .action-block .round-button {
-    margin-right: 20px;
+  .action-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
   }
 
   .info-row {
