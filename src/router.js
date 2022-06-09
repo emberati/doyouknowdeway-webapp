@@ -2,7 +2,7 @@ import Main from '@/components/pages/Main'
 import Profile from '@/components/pages/Profile'
 import Catalog from '@/components/pages/Catalog'
 import Rents from '@/components/pages/Rents'
-import AdminCatalog from '@/components/pages/AdminCatalog'
+import Order from '@/components/pages/Order'
 import AdminRents from '@/components/pages/AdminRents'
 
 import { createRouter, createWebHistory } from "vue-router"
@@ -30,9 +30,12 @@ const routes = [
     component: Rents
   },
   {
-    path: '/admin/catalog',
-    name: 'admin-catalog',
-    component: AdminCatalog
+    path: '/order/:id',
+    name: 'order',
+    component: Order,
+    meta: {
+      layout: 'flat-layout'
+    }
   },
   {
     path: '/admin/rents',

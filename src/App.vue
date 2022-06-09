@@ -1,10 +1,10 @@
 <script>
-import MainLayout from './components/layouts/MainLayout'
+// import MainLayout from './components/layouts/MainLayout'
 
 export default {
   name: 'App',
   components: {
-    MainLayout
+    // MainLayout
   },
   computed: {
     layout() {

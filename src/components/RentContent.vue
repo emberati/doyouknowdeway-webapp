@@ -59,7 +59,6 @@ export default {
   },
   setup() {
     const rents = useRentsStore()
-
     const {
       getCartStatus,
       getTotalCost,

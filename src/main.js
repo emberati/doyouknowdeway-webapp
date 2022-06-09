@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from '@/router'
 
 import ui from '@/components/ui'
+import { registerLayouts } from '@/components/layouts'
+
 // import components from '@/components'
 
 import './assets/css/colors.css'
@@ -15,6 +17,8 @@ import './assets/css/global.css'
 
 const app = createApp(App)
 const pinia = createPinia()
+
+registerLayouts(app)
 
 // components.forEach(component => {
 //     app.component(component.name, component)
